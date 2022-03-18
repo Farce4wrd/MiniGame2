@@ -55,7 +55,7 @@ public class GameRoomController {
 			e.printStackTrace();
 			System.out.println("Cant find game files.");
 		}
-		gameRoomService.listAllRooms();
+		//gameRoomService.listAllRooms();
 	}
 	
 	//Provides the exit directions in a string arraylist for view component to hold user options
@@ -63,8 +63,15 @@ public class GameRoomController {
 		return gameRoomService.getRoomDirection(id);
 	}
 	
+	public int getRoomID(GameRoom room, String direction) throws GameDataException {
+		return gameRoomService.getNextRoomId(room, direction);
+	}
 	//Provides the game rooms for the view component to iterate over if needed
-	public ArrayList<GameRoom> getAllRooms(){
+	public ArrayList<GameRoom> getAllRooms() throws GameDataException{
 		return gameRoomService.getRooms();
+	}
+	//Tells the user if the game has been visited
+	public void setRoomVisit(GameRoom room) throws GameDataException{
+		 gameRoomService.setRoomVisited(room);
 	}
 }

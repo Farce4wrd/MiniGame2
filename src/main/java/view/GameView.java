@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import controller.GameRoomController;
+import exception.GameDataException;
 import model.Exit;
 import model.GameRoom;
 
@@ -19,7 +20,7 @@ public class GameView {
 	private ArrayList<String> userOptions;
 	private boolean playerIsRight;
 	
-	public GameView(){
+	public GameView() throws GameDataException{
 		
 		System.out.println("Welcome to my adventure game. Find the way out or just explore the rooms");
 		System.out.println("You can navigate the room by typing out the direction (e.g North, West, etc.)");
@@ -55,11 +56,12 @@ public class GameView {
 					for(GameRoom room: gameRoomController.getAllRooms()) { //list of rooms
 						if(room.getId() == currRoomId) {
 							System.out.println(room);
-							room.setHasVisited();
-							ArrayList<Exit> exit= room.getExit();
-							for(Exit ex: exit) {
-								userOptions.add(ex.getDirection());
-							}
+							gameRoomController.setRoomVisit(room);
+							//room.setHasVisited();
+							//ArrayList<Exit> exit= room.getExit();
+							//for(Exit ex: exit) {
+								//userOptions.add(ex.getDirection());
+							//}
 							userOptions = gameRoomController.getRoomDirections(currRoomId);
 
 							//HotFix solution to make sure game ends when user reaches perfect destination.
@@ -78,8 +80,8 @@ public class GameView {
 							for(String options: userOptions) {
 								if(playerChoice.equalsIgnoreCase(options)) { //West == West
 									playerIsRight= true;
-									Exit temp = room.getAnExit(options); //stores the Exit object that has direction and id
-									currRoomId = temp.getRoomId();
+									//Exit temp = room.getAnExit(options); //stores the Exit object that has direction and id
+									currRoomId = gameRoomController.getRoomID(room, options);
 									oldUserOptions.addAll(userOptions);
 //									
 //											
@@ -89,8 +91,8 @@ public class GameView {
 							if(playerIsRight == false) {
 								System.out.println("Error. Please try again.");
 							}
-							userOptions.removeAll(oldUserOptions);  //here we update the user options (e.g North, West becoming South, East)
-							oldUserOptions.clear(); 
+							//userOptions.removeAll(oldUserOptions);  //here we update the user options (e.g North, West becoming South, East)
+							//oldUserOptions.clear(); 
 							
 
 						}
@@ -110,11 +112,11 @@ public class GameView {
 
 		}
 
-
+//
 
 	}
 	}
 	
 	
 
-}
+

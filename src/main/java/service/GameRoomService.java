@@ -47,8 +47,19 @@ public class GameRoomService {
 		return roomDirections;
 	}
 	
-	public int getNextRoomId(GameRoom room) {
-		int nextRoomId = room
+	public int getNextRoomId(GameRoom room, String direction) throws GameDataException {
+		int result = 0;
+		for(Exit ex: room.getAllExitObject()) {
+			if(ex.getDirection().equals(direction)) {
+				result = ex.getRoomId();
+			}
+		}
+		return result;
+		
+	}
+	
+	public void setRoomVisited(GameRoom room) {
+		room.setHasVisited();
 	}
 	//Find a way to return the list of rooms created to the controller
 //	public List<GameRoom> getAllGameRoom(){

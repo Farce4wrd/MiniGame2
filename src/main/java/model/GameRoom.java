@@ -82,8 +82,8 @@ public class GameRoom {
 	/**
 	 * @param hasVisited the hasVisited to set
 	 */
-	public void setHasVisited(boolean hasVisited) {
-		this.hasVisited = hasVisited;
+	public void setHasVisited() {
+		this.hasVisited = true;
 	}
 	
 	//To get exits directions like {West,North, East, South} on a room-by-room basis
@@ -96,7 +96,9 @@ public class GameRoom {
 		return exitDirections;
 	}
 	
-	public ArrayList<int>
+	public ArrayList<Exit> getAllExitObject(){
+		return this.exits;
+	}
 	
 
 }
