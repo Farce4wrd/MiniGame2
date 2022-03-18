@@ -1,0 +1,34 @@
+1
+beginning
+West 2 South 3
+This is the beginning. A lost room with no windows.
+
+2
+Garage
+South 5 East 1
+We are in the Garage. A strange place to be in but what's that dreadful sound coming south of us?
+
+3
+Kitchen
+North 1 West 4 East 6 South 7
+This is the kitchen but it has leads to different places. There is comfort west of us, silence east of us, and enveloping red light south of us.
+
+4
+Bedroom
+East 3
+Is this peace? No, it doesn't feel right. Something is beneath me. I can see the shadows moving and the sound of footsteps nearby. Move now!
+
+5
+Cavern
+North 2
+Sublime and breathtaking. This is not a world for me. Find peace elsewhere
+
+6
+Torture Chamber
+West 3
+The silence envelops me or is it my imagination dying in a place like this? When did it happen? Didnt you follow the silence? Death awaits. You failed!
+
+7
+Balcony
+North 3
+What a bright sunset! Congratulations, you found peace! That was easy?! Alright, try to find the true danger.

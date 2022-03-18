@@ -22,6 +22,11 @@ public class GameRoom {
 		this.id = Id;
 	}
 	
+	@Override
+	public String toString() {
+		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasVisited=" + hasVisited
+				+ ", items=" + items + ", exits=" + exits + "]";
+	}
 	public GameRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items,
 			ArrayList<Exit> exits) {
 		super();
@@ -81,7 +86,17 @@ public class GameRoom {
 		this.hasVisited = hasVisited;
 	}
 	
-	//Generate getters and setters
+	//To get exits directions like {West,North, East, South} on a room-by-room basis
+	public ArrayList<String> getExits(){
+		ArrayList<String> exitDirections = new ArrayList<String>();
+		for(Exit ex: exits) {
+			String direction = ex.getDirection();
+			exitDirections.add(direction);
+		}
+		return exitDirections;
+	}
+	
+	public ArrayList<int>
 	
 
 }
