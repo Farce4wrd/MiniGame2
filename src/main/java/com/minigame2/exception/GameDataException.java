@@ -1,4 +1,4 @@
-package exception;
+package com.minigame2.exception;
 
 import java.io.IOException;
 

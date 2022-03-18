@@ -1,4 +1,4 @@
-package model;
+package com.minigame2.model;
 import java.util.ArrayList;
 
 /**

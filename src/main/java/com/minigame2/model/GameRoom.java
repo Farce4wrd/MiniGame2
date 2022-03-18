@@ -1,4 +1,4 @@
-package model;
+package com.minigame2.model;
 
 import java.util.ArrayList;
 
@@ -22,11 +22,6 @@ public class GameRoom {
 		this.id = Id;
 	}
 	
-	@Override
-	public String toString() {
-		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasVisited=" + hasVisited
-				+ ", items=" + items + ", exits=" + exits + "]";
-	}
 	public GameRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items,
 			ArrayList<Exit> exits) {
 		super();
@@ -100,5 +95,17 @@ public class GameRoom {
 		return this.exits;
 	}
 	
+	@Override
+	public String toString() {
+		String visit="";
+		if(this.isHasVisited()== true) {
+			visit ="Has visited";
+		}else {
+			visit ="Has not visited";
+		}
+		System.out.println(this.getName()+": "+ visit);
+		return this.description;
+		//return "GameRoom [description=" + description + "You can go " + result + "]";
+	}
 
 }

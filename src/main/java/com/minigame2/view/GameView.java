@@ -1,30 +1,32 @@
-package view;
+package com.minigame2.view;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import controller.GameRoomController;
-import exception.GameDataException;
-import model.Exit;
-import model.GameRoom;
+import com.minigame2.controller.GameRoomController;
+import com.minigame2.exception.GameDataException;
+import com.minigame2.model.GameRoom;
 
+@Component
 public class GameView {
 	
-	@Autowired
 	private GameRoomController gameRoomController;
+	
 	public static int currRoomId;
 	private ArrayList<String> userOptions;
 	private boolean playerIsRight;
 	
-	public GameView() throws GameDataException{
+	@Autowired
+	public GameView(GameRoomController controller) {
+		this.gameRoomController = controller;
+	}
+
+	
+	public void start() throws GameDataException{
 		
-		System.out.println("Welcome to my adventure game. Find the way out or just explore the rooms");
-		System.out.println("You can navigate the room by typing out the direction (e.g North, West, etc.)");
-		System.out.println("Type start to continue, else type stop: ");
 		boolean isRunning = true;
 		boolean firstLoad = true;
 		Scanner userInput = new Scanner(System.in);
@@ -76,13 +78,13 @@ public class GameView {
 							String playerChoice = userInput.next();
 							
 							//logic processing their answer
-							Set<String> oldUserOptions = new HashSet<>(); //used to remove old options
+							//Set<String> oldUserOptions = new HashSet<>(); //used to remove old options
 							for(String options: userOptions) {
 								if(playerChoice.equalsIgnoreCase(options)) { //West == West
 									playerIsRight= true;
 									//Exit temp = room.getAnExit(options); //stores the Exit object that has direction and id
 									currRoomId = gameRoomController.getRoomID(room, options);
-									oldUserOptions.addAll(userOptions);
+									//oldUserOptions.addAll(userOptions);
 //									
 //											
 //								

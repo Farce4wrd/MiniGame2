@@ -1,4 +1,4 @@
-package data;
+package com.minigame2.data;
 
 import org.springframework.stereotype.Repository;
 

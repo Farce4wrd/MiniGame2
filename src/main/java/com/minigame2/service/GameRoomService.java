@@ -1,19 +1,18 @@
-package service;
+package com.minigame2.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import exception.GameDataException;
-import model.Exit;
-import model.GameRoom;
-import model.Item;
+import com.minigame2.exception.GameDataException;
+import com.minigame2.model.Exit;
+import com.minigame2.model.GameRoom;
+import com.minigame2.model.Item;
 
 @Service
 public class GameRoomService {
 	
-	@Autowired
 	//For connecting to database (if need be)
 	//private GameRoomRepository gameRoomRepository;
 	
@@ -21,7 +20,7 @@ public class GameRoomService {
 	
 	public void createRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items, ArrayList<Exit> exits) {
 		GameRoom room = new GameRoom(id, name, description, hasVisited, items, exits);
-		gameRooms.add(room);
+		this.gameRooms.add(room);
 		
 	}
 	//Retrieve all the rooms
@@ -33,7 +32,7 @@ public class GameRoomService {
 	
 	//code to get the rooms created in an arraylist
 	public ArrayList<GameRoom> getRooms() {
-		return gameRooms;
+		return this.gameRooms;
 	}
 	
 	//Code to get room exit directions based on the room id

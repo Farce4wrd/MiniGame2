@@ -1,4 +1,4 @@
-package controller;
+package com.minigame2.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,19 +8,22 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import exception.GameDataException;
-import model.Exit;
-import model.GameRoom;
-import service.GameRoomService;
+import com.minigame2.exception.GameDataException;
+import com.minigame2.model.Exit;
+import com.minigame2.model.GameRoom;
+import com.minigame2.service.GameRoomService;
 
 @Controller
 public class GameRoomController {
 	
 	private GameRoomService gameRoomService;
+	
 	@Autowired
-	public GameRoomController(GameRoomService gameRoomService) {
-		this.gameRoomService= gameRoomService;
+	public GameRoomController(GameRoomService service) {
+		this.gameRoomService = service;
+		ControllerStart();
 	}
+	
 	
 	public void ControllerStart() {
 		try {

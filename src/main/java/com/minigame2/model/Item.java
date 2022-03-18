@@ -1,4 +1,4 @@
-package model;
+package com.minigame2.model;
 
 public class Item {
 	

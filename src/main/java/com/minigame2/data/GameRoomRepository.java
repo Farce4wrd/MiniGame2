@@ -1,8 +1,8 @@
-package data;
+package com.minigame2.data;
 
 import org.springframework.stereotype.Repository;
 
-import model.GameRoom;
+import com.minigame2.model.GameRoom;
 
 @Repository
 public interface GameRoomRepository<GameRoom>{
