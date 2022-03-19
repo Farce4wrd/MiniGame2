@@ -11,21 +11,44 @@ import org.springframework.stereotype.Controller;
 import com.minigame2.exception.GameDataException;
 import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
+import com.minigame2.model.Item;
+import com.minigame2.model.Player;
 import com.minigame2.service.GameRoomService;
+import com.minigame2.service.ItemService;
 
 @Controller
 public class GameRoomController {
 	
 	private GameRoomService gameRoomService;
+	private ItemService itemService;
+	private Player player;
+	
 	
 	@Autowired
-	public GameRoomController(GameRoomService service) {
+	public GameRoomController(GameRoomService service, ItemService itemService, Player player) throws GameDataException {
 		this.gameRoomService = service;
+		this.itemService = itemService;
+		this.player = player;
 		ControllerStart();
 	}
 	
 	
-	public void ControllerStart() {
+	public void ControllerStart() throws GameDataException {
+		try {
+			File itemFile = new File("item.txt");
+			Scanner itemReader = new Scanner(itemFile);
+			while(itemReader.hasNextLine()) {
+				int id = Integer.parseInt(itemReader.nextLine());
+				String name = itemReader.nextLine();
+				String description = itemReader.nextLine();
+				itemService.createItems(id, name, description);
+			}
+		}catch(Exception ex) {
+			throw new GameDataException("Error occured while reading the text file");
+		}
+		
+		
+		
 		try {
 			File gameFiles = new File("minigame.txt");
 			Scanner fileReader = new Scanner(gameFiles);
@@ -59,6 +82,10 @@ public class GameRoomController {
 			System.out.println("Cant find game files.");
 		}
 		//gameRoomService.listAllRooms();
+		//randomly generate the items in rooms
+		for(Item item: itemService.getItem()) {
+			gameRoomService.addItemInRoom(item);
+		}
 	}
 	
 	//Provides the exit directions in a string arraylist for view component to hold user options
@@ -66,6 +93,7 @@ public class GameRoomController {
 		return gameRoomService.getRoomDirection(id);
 	}
 	
+	//Gets the next room id in the exit list
 	public int getRoomID(GameRoom room, String direction) throws GameDataException {
 		return gameRoomService.getNextRoomId(room, direction);
 	}
@@ -76,5 +104,67 @@ public class GameRoomController {
 	//Tells the user if the game has been visited
 	public void setRoomVisit(GameRoom room) throws GameDataException{
 		 gameRoomService.setRoomVisited(room);
+	}
+	
+	//Calls the drop action in service --Drops item in room
+	public void dropItem(Item item, GameRoom room) {
+		gameRoomService.dropItemInRoom(item, room);
+		System.out.println(item.getName() + " has been removed");
+	}
+	
+	//Checks each user input for changes to item or other things
+	public void verify(GameRoom room, String playerChoice) throws GameDataException {
+		//for user to respond to item/
+		if(playerChoice.contains("remove")) {
+			boolean itemFound = false;
+			for(Item it: player.getBackpack()) {
+				if(playerChoice.equals("remove" +it.getName())) {
+					itemFound = true;
+					dropItem(it, room);
+				}
+			}
+			if(itemFound == false) {
+				throw new GameDataException("Cant find item in backpack");
+			}
+		}
+		
+		
+		//looks into stored items within current room
+		if(playerChoice.contains("get")) {
+			boolean itemInRoom = false;
+			for(Item it: room.getItems()) {
+				if(playerChoice.equals("get " +it.getName())) {
+					itemInRoom = true;
+					player.addItemToBackpack(it);
+				}
+			}
+			if(itemInRoom == false) {
+				throw new GameDataException("Item can not be found in this room.");
+			}
+		}
+		
+		//checks for inventory in backpack
+		if(playerChoice.contains("backpack")) {
+			var inventory = player.getBackpack();
+			for(Item item: inventory) {
+				System.out.println(item + " is inside your backpack");
+			}
+		}
+		
+		//if user wants to inspect an item
+		if(playerChoice.contains("inspect")) {
+			boolean itemInRoom = false;
+			for(Item it: room.getItems()) {
+				if(playerChoice.equals("inspect " +it.getName())) {
+					itemInRoom = true;
+					itemService.inspect(it);
+				}
+			}
+			if(itemInRoom == false) {
+				throw new GameDataException("Sorry no item in this room to inspect");
+			}
+			
+		}
+		
 	}
 }

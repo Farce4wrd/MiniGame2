@@ -1,0 +1,9 @@
+1
+Torch
+A guttering torch that sheds a little light
+2
+Sword
+A rusty sword that looks like it might fall apart
+3
+Shield
+A very tiny shield. This looks like something that could really protect you

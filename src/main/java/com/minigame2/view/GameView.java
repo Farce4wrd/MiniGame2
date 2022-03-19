@@ -59,11 +59,8 @@ public class GameView {
 						if(room.getId() == currRoomId) {
 							System.out.println(room);
 							gameRoomController.setRoomVisit(room);
-							//room.setHasVisited();
-							//ArrayList<Exit> exit= room.getExit();
-							//for(Exit ex: exit) {
-								//userOptions.add(ex.getDirection());
-							//}
+							
+							
 							userOptions = gameRoomController.getRoomDirections(currRoomId);
 
 							//HotFix solution to make sure game ends when user reaches perfect destination.
@@ -76,18 +73,17 @@ public class GameView {
 							System.out.println("You can go "+ userOptions.toString());
 							System.out.println("Where do you want to go? :");
 							String playerChoice = userInput.next();
+							gameRoomController.verify(room, playerChoice);
+							
 							
 							//logic processing their answer
-							//Set<String> oldUserOptions = new HashSet<>(); //used to remove old options
+						
 							for(String options: userOptions) {
 								if(playerChoice.equalsIgnoreCase(options)) { //West == West
 									playerIsRight= true;
 									//Exit temp = room.getAnExit(options); //stores the Exit object that has direction and id
 									currRoomId = gameRoomController.getRoomID(room, options);
-									//oldUserOptions.addAll(userOptions);
-//									
-//											
-//								
+								
 								}
 							}
 							if(playerIsRight == false) {

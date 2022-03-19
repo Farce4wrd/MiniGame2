@@ -81,6 +81,21 @@ public class GameRoom {
 		this.hasVisited = true;
 	}
 	
+	//To add items to a room
+	public void addItem(Item item) {
+		this.items.add(item);
+	}
+	
+	//To remove items from room
+	public void removeItem(Item item) {
+		this.items.remove(item);
+	}
+	
+	//Returns all items inside a room
+	public ArrayList<Item> getItems(){
+		return this.items;
+	}
+	
 	//To get exits directions like {West,North, East, South} on a room-by-room basis
 	public ArrayList<String> getExits(){
 		ArrayList<String> exitDirections = new ArrayList<String>();
@@ -91,6 +106,7 @@ public class GameRoom {
 		return exitDirections;
 	}
 	
+	//To retrieve all exit objects
 	public ArrayList<Exit> getAllExitObject(){
 		return this.exits;
 	}

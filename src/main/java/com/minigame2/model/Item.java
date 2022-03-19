@@ -5,11 +5,13 @@ public class Item {
 	private int Id;
 	private String name;
 	private String itemDescription;
-	private GameRoom room;
+	//private GameRoom room;
 	
-	
-	
-	
+	public Item(int id, String name, String itemDescrip) {
+		this.Id = id;
+		this.name= name;
+		this.itemDescription = itemDescrip;
+	}
 	
 	
 	/**
@@ -50,7 +52,7 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "Item [Id=" + Id + ", name=" + name + ", itemDescription=" + itemDescription + ", room=" + room + "]";
+		return "Item [Id=" + Id + ", name=" + name + ", itemDescription=" + itemDescription + "]";
 	}
 
 }

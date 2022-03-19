@@ -57,9 +57,40 @@ public class GameRoomService {
 		
 	}
 	
+	//Inform the user the room has been visited
 	public void setRoomVisited(GameRoom room) {
 		room.setHasVisited();
 	}
+	
+	//leaves item from backpack in current room
+	public void dropItemInRoom(Item item, GameRoom room) {
+		room.addItem(item);
+	}
+	
+	//adds an item randomly into a randomly into a room 
+	public void addItemInRoom(Item item) {
+		int randRoom1 = (int) Math.random()*(7-1+1)+1;
+		int randRoom2 = (int) Math.random()*(7-1+1)+1;
+		int randRoom3 = (int) Math.random()*(7-1+1)+1;
+		for(GameRoom room: this.gameRooms) {
+			if(room.getId() == randRoom1) {
+				room.addItem(item);
+			}
+			if(room.getId() == randRoom2) {
+				room.addItem(item);
+			}
+			if(room.getId() == randRoom3) {
+				room.addItem(item);
+			}
+		}
+		
+	}
+	
+	//remove item from room after player picks it up
+	public void removeItemFromRoom(Item item, GameRoom room) {
+		room.removeItem(item);
+	}
+	
 	//Find a way to return the list of rooms created to the controller
 //	public List<GameRoom> getAllGameRoom(){
 //		return gameRoomRepository.findAll();
