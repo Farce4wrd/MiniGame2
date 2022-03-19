@@ -68,21 +68,25 @@ public class GameRoomService {
 	}
 	
 	//adds an item randomly into a randomly into a room 
-	public void addItemInRoom(Item item) {
-		int randRoom1 = (int) Math.random()*(7-1+1)+1;
-		int randRoom2 = (int) Math.random()*(7-1+1)+1;
-		int randRoom3 = (int) Math.random()*(7-1+1)+1;
-		for(GameRoom room: this.gameRooms) {
-			if(room.getId() == randRoom1) {
-				room.addItem(item);
-			}
-			if(room.getId() == randRoom2) {
-				room.addItem(item);
-			}
-			if(room.getId() == randRoom3) {
-				room.addItem(item);
-			}
-		}
+	public void addItemInRoom(ArrayList<Item> item, ArrayList<GameRoom> room) throws GameDataException {
+		Item item1 = item.get(0);
+		Item item2 = item.get(1);
+		Item item3 = item.get(2);
+		
+		room.get(1).addItem(item1);
+		room.get(2).addItem(item2);
+		room.get(3).addItem(item3);
+		
+//		
+//		for(int i =0; i<item.size(); i++) {
+//				item1 = item.get(1);
+//				item2 = item.get(2);
+//				item3 = item.get(3);
+//			}
+			
+//		}else {
+//			throw new GameDataException("Problem occured trying to place items in room");
+//		}
 		
 	}
 	
@@ -91,12 +95,10 @@ public class GameRoomService {
 		room.removeItem(item);
 	}
 	
-	//Find a way to return the list of rooms created to the controller
-//	public List<GameRoom> getAllGameRoom(){
-//		return gameRoomRepository.findAll();
-//	}
-	
-	//make room
+	//gets item from specific room
+	public ArrayList<Item> getItemFromRoom(GameRoom room) {
+		return room.getItems();
+	}
 	
 	
 

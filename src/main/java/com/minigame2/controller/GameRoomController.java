@@ -71,9 +71,12 @@ public class GameRoomController {
 					exitList.add(exit);
 				}
 				String description = fileReader.nextLine();
-				gameRoomService.createRoom(id, name, description, false, null, exitList);
+				ArrayList<Item> it = new ArrayList<Item>();
+				gameRoomService.createRoom(id, name, description, false, it, exitList);
 				
 			}
+			//randomly generate the items in rooms
+			gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
 
 	
 		} catch (FileNotFoundException e) {
@@ -81,11 +84,7 @@ public class GameRoomController {
 			e.printStackTrace();
 			System.out.println("Cant find game files.");
 		}
-		//gameRoomService.listAllRooms();
-		//randomly generate the items in rooms
-		for(Item item: itemService.getItem()) {
-			gameRoomService.addItemInRoom(item);
-		}
+		
 	}
 	
 	//Provides the exit directions in a string arraylist for view component to hold user options
@@ -112,8 +111,23 @@ public class GameRoomController {
 		System.out.println(item.getName() + " has been removed");
 	}
 	
+	//To get items within a room for game view class
+	public void getItem(GameRoom room) {
+		ArrayList<Item> items = gameRoomService.getItemFromRoom(room);
+		if(items!=null) {
+			for(Item item: items) {
+				System.out.println("Oh! There's something here..");
+				System.out.println(item.getItemDescription());
+			}
+		}else {
+			System.out.println("No items here");
+		}
+		
+	}
+	
 	//Checks each user input for changes to item or other things
-	public void verify(GameRoom room, String playerChoice) throws GameDataException {
+	public boolean verify(GameRoom room, String playerChoice) throws GameDataException {
+		boolean result = false;
 		//for user to respond to item/
 		if(playerChoice.contains("remove")) {
 			boolean itemFound = false;
@@ -126,6 +140,7 @@ public class GameRoomController {
 			if(itemFound == false) {
 				throw new GameDataException("Cant find item in backpack");
 			}
+			result= true;
 		}
 		
 		
@@ -141,14 +156,20 @@ public class GameRoomController {
 			if(itemInRoom == false) {
 				throw new GameDataException("Item can not be found in this room.");
 			}
+			result = true;
 		}
 		
 		//checks for inventory in backpack
-		if(playerChoice.contains("backpack")) {
-			var inventory = player.getBackpack();
-			for(Item item: inventory) {
-				System.out.println(item + " is inside your backpack");
+		if(playerChoice.equalsIgnoreCase("backpack")) {
+			ArrayList<Item> inventory = player.getBackpack();
+			if(inventory.isEmpty()==true) {
+				System.out.println("There's nothing in your backpack");
+			}else {
+				for(Item item: inventory) {
+					System.out.println(item + " is inside your backpack");
+				}
 			}
+			result = true;
 		}
 		
 		//if user wants to inspect an item
@@ -163,8 +184,9 @@ public class GameRoomController {
 			if(itemInRoom == false) {
 				throw new GameDataException("Sorry no item in this room to inspect");
 			}
+			result = true;
 			
 		}
-		
+		return result; //signifies we didnt do anything in room
 	}
 }

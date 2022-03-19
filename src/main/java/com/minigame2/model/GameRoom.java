@@ -2,12 +2,16 @@ package com.minigame2.model;
 
 import java.util.ArrayList;
 
+
+import org.springframework.stereotype.Component;
+
+
 public class GameRoom {
 	private int id;
 	private String name;
 	private String description;
 	private boolean hasVisited;
-	private ArrayList<Item> items;
+	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<Exit> exits;
 	//private RoomDB rdb;
 	//private ItemDB idb;
@@ -21,6 +25,7 @@ public class GameRoom {
 	public GameRoom(int Id) {
 		this.id = Id;
 	}
+	
 	
 	public GameRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items,
 			ArrayList<Exit> exits) {

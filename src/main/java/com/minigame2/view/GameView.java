@@ -53,11 +53,18 @@ public class GameView {
 				}
 			}else if(player.equalsIgnoreCase("start")){
 				
+				//test
+				for(GameRoom room: gameRoomController.getAllRooms()) {
+					System.out.println(room);
+					System.out.println(room.getItems());
+				}
+				
 				//loop to look through game files for that id and print it
 				while(currRoomId != 7) {
 					for(GameRoom room: gameRoomController.getAllRooms()) { //list of rooms
 						if(room.getId() == currRoomId) {
 							System.out.println(room);
+							gameRoomController.getItem(room);
 							gameRoomController.setRoomVisit(room);
 							
 							
@@ -71,13 +78,18 @@ public class GameView {
 							
 							//Tells the user what direction they can go in
 							System.out.println("You can go "+ userOptions.toString());
-							System.out.println("Where do you want to go? :");
+							System.out.println("What do you want to do? :");
 							String playerChoice = userInput.next();
-							gameRoomController.verify(room, playerChoice);
+							Boolean doOtherThingsInRoom = gameRoomController.verify(room, playerChoice);
 							
+							//loop to make sure the player can do multiple things in room
+							while(doOtherThingsInRoom == true) {
+								System.out.println("What else do you want to do? :");
+								playerChoice = userInput.next();
+								doOtherThingsInRoom = gameRoomController.verify(room, playerChoice);
+							}
 							
 							//logic processing their answer
-						
 							for(String options: userOptions) {
 								if(playerChoice.equalsIgnoreCase(options)) { //West == West
 									playerIsRight= true;

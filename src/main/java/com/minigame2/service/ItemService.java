@@ -22,12 +22,14 @@ public class ItemService {
 	//create Items from txt file to add to a room
 	public void createItems(int id, String name, String description) {
 		Item item = new Item(id, name, description);
+		items.add(item);
 		
 	}
 	
 	public ArrayList<Item> getItem() {
 		return this.items;
 	}
+	
 	//Removes item from the backpack and places it inside a room
 	public void removeItem(Item item) {
 		for(Item it: player.getBackpack()) {
