@@ -108,6 +108,7 @@ public class GameRoomController {
 	//Calls the drop action in service --Drops item in room
 	public void dropItem(Item item, GameRoom room) {
 		gameRoomService.dropItemInRoom(item, room);
+		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
 	
@@ -117,7 +118,7 @@ public class GameRoomController {
 		if(items!=null) {
 			for(Item item: items) {
 				System.out.println("Oh! There's something here..");
-				System.out.println(item.getItemDescription());
+				System.out.println(item.getName());
 			}
 		}else {
 			System.out.println("No items here");
@@ -131,10 +132,12 @@ public class GameRoomController {
 		//for user to respond to item/
 		if(playerChoice.contains("remove")) {
 			boolean itemFound = false;
-			for(Item it: player.getBackpack()) {
-				if(playerChoice.equals("remove" +it.getName())) {
+			ArrayList<Item> items = player.getBackpack();
+			for(Item it: items) {
+				if(playerChoice.equalsIgnoreCase("remove " +it.getName())) {
 					itemFound = true;
 					dropItem(it, room);
+					break;
 				}
 			}
 			if(itemFound == false) {
@@ -148,13 +151,17 @@ public class GameRoomController {
 		if(playerChoice.contains("get")) {
 			boolean itemInRoom = false;
 			for(Item it: room.getItems()) {
-				if(playerChoice.equals("get " +it.getName())) {
+				if(playerChoice.equalsIgnoreCase("get " +it.getName())) {
 					itemInRoom = true;
 					player.addItemToBackpack(it);
+					gameRoomService.removeItemFromRoom(it, room);	//to remove item from room
+					break;
 				}
 			}
 			if(itemInRoom == false) {
-				throw new GameDataException("Item can not be found in this room.");
+				System.out.println("Item can not be found in this room.");
+				return true;
+				//throw new GameDataException("Item can not be found in this room.");
 			}
 			result = true;
 		}
@@ -166,7 +173,7 @@ public class GameRoomController {
 				System.out.println("There's nothing in your backpack");
 			}else {
 				for(Item item: inventory) {
-					System.out.println(item + " is inside your backpack");
+					System.out.println(item.getName() + " is inside your backpack");
 				}
 			}
 			result = true;
@@ -176,13 +183,15 @@ public class GameRoomController {
 		if(playerChoice.contains("inspect")) {
 			boolean itemInRoom = false;
 			for(Item it: room.getItems()) {
-				if(playerChoice.equals("inspect " +it.getName())) {
+				if(playerChoice.equalsIgnoreCase("inspect " +it.getName())) {
 					itemInRoom = true;
 					itemService.inspect(it);
 				}
 			}
 			if(itemInRoom == false) {
-				throw new GameDataException("Sorry no item in this room to inspect");
+				//throw new GameDataException("Sorry no item in this room to inspect");
+				System.out.println("Sorry, no item in this room to inspect");
+				return true;
 			}
 			result = true;
 			

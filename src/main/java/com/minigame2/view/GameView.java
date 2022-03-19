@@ -79,13 +79,13 @@ public class GameView {
 							//Tells the user what direction they can go in
 							System.out.println("You can go "+ userOptions.toString());
 							System.out.println("What do you want to do? :");
-							String playerChoice = userInput.next();
+							String playerChoice = userInput.nextLine();
 							Boolean doOtherThingsInRoom = gameRoomController.verify(room, playerChoice);
 							
 							//loop to make sure the player can do multiple things in room
 							while(doOtherThingsInRoom == true) {
 								System.out.println("What else do you want to do? :");
-								playerChoice = userInput.next();
+								playerChoice = userInput.nextLine();
 								doOtherThingsInRoom = gameRoomController.verify(room, playerChoice);
 							}
 							

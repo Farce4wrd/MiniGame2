@@ -15,8 +15,8 @@ public class ItemService {
 	private Player player;
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
-	public String inspect(Item item) {
-		return item.getItemDescription();
+	public void inspect(Item item) {
+		System.out.println(item.getItemDescription());
 	}
 	
 	//create Items from txt file to add to a room
