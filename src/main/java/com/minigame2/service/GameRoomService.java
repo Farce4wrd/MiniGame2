@@ -13,29 +13,54 @@ import com.minigame2.model.Item;
 @Service
 public class GameRoomService {
 	
-	//For connecting to database (if need be)
-	//private GameRoomRepository gameRoomRepository;
-	
 	private ArrayList<GameRoom> gameRooms = new ArrayList<GameRoom>();
 	
+	/**Creates the room object
+	 * 
+	 * Method: @param id
+	 * Method: @param name
+	 * Method: @param description
+	 * Method: @param hasVisited
+	 * Method: @param items
+	 * Method: @param exits
+	 *
+	 * void
+	 */
 	public void createRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items, ArrayList<Exit> exits) {
 		GameRoom room = new GameRoom(id, name, description, hasVisited, items, exits);
 		this.gameRooms.add(room);
 		
 	}
-	//Retrieve all the rooms
+	/**Retrieve all the rooms
+	 * 
+	 * Method: 
+	 *
+	 * void
+	 */
 	public void listAllRooms() {
 		for(GameRoom room: gameRooms) {
 			System.out.println(room);
 		}
 	}
 	
-	//code to get the rooms created in an arraylist
+	/**code to get the rooms created in an arraylist
+	 * 
+	 * Method: @return
+	 *
+	 * ArrayList<GameRoom>
+	 */
 	public ArrayList<GameRoom> getRooms() {
 		return this.gameRooms;
 	}
 	
-	//Code to get room exit directions based on the room id
+	/**Code to get room exit directions based on the room id
+	 * 
+	 * Method: @param roomId
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * ArrayList<String>
+	 */
 	public ArrayList<String> getRoomDirection(int roomId) throws GameDataException{
 		ArrayList<String> roomDirections = new ArrayList<String>();
 		for(GameRoom room: gameRooms) {
@@ -45,7 +70,15 @@ public class GameRoomService {
 		}
 		return roomDirections;
 	}
-	
+	/**Code gets the exit id that links to other rooms
+	 * 
+	 * Method: @param room
+	 * Method: @param direction
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * int
+	 */
 	public int getNextRoomId(GameRoom room, String direction) throws GameDataException {
 		int result = 0;
 		for(Exit ex: room.getAllExitObject()) {
@@ -57,17 +90,35 @@ public class GameRoomService {
 		
 	}
 	
-	//Inform the user the room has been visited
+	/**Inform the user the room has been visited
+	 * 
+	 * Method: @param room
+	 *
+	 * void
+	 */
 	public void setRoomVisited(GameRoom room) {
 		room.setHasVisited();
 	}
 	
-	//leaves item from backpack in current room
+	/**leaves item from backpack in current room
+	 * 
+	 * Method: @param item
+	 * Method: @param room
+	 *
+	 * void
+	 */
 	public void dropItemInRoom(Item item, GameRoom room) {
 		room.addItem(item);
 	}
 	
-	//adds an item randomly into a randomly into a room 
+	/**adds an item randomly into a randomly into a room
+	 *  
+	 * Method: @param item
+	 * Method: @param room
+	 * Method: @throws GameDataException
+	 *
+	 * void
+	 */
 	public void addItemInRoom(ArrayList<Item> item, ArrayList<GameRoom> room) throws GameDataException {
 		Item item1 = item.get(0);
 		Item item2 = item.get(1);
@@ -77,25 +128,26 @@ public class GameRoomService {
 		room.get(2).addItem(item2);
 		room.get(3).addItem(item3);
 		
-//		
-//		for(int i =0; i<item.size(); i++) {
-//				item1 = item.get(1);
-//				item2 = item.get(2);
-//				item3 = item.get(3);
-//			}
-			
-//		}else {
-//			throw new GameDataException("Problem occured trying to place items in room");
-//		}
-		
 	}
 	
-	//remove item from room after player picks it up
+	/**remove item from room after player picks it up
+	 * 
+	 * Method: @param item
+	 * Method: @param room
+	 *
+	 * void
+	 */
 	public void removeItemFromRoom(Item item, GameRoom room) {
 		room.removeItem(item);
 	}
 	
-	//gets item from specific room
+	/**gets item from specific room
+	 * 
+	 * Method: @param room
+	 * Method: @return
+	 *
+	 * ArrayList<Item>
+	 */
 	public ArrayList<Item> getItemFromRoom(GameRoom room) {
 		return room.getItems();
 	}

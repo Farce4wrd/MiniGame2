@@ -30,6 +30,7 @@ public class GameView {
 		boolean isRunning = true;
 		boolean firstLoad = true;
 		Scanner userInput = new Scanner(System.in);
+		userInput.useDelimiter(System.lineSeparator());
 		
 		//Game loading begins
 		while(isRunning) {
@@ -53,13 +54,13 @@ public class GameView {
 				}
 			}else if(player.equalsIgnoreCase("start")){
 				
-				//test
-				for(GameRoom room: gameRoomController.getAllRooms()) {
-					System.out.println(room);
-					System.out.println(room.getItems());
-				}
 				
-				//loop to look through game files for that id and print it
+
+				
+				/**loop to look through game files for that id and print it
+				 * 
+				 */
+
 				while(currRoomId != 7) {
 					for(GameRoom room: gameRoomController.getAllRooms()) { //list of rooms
 						if(room.getId() == currRoomId) {
@@ -70,13 +71,17 @@ public class GameView {
 							
 							userOptions = gameRoomController.getRoomDirections(currRoomId);
 
-							//HotFix solution to make sure game ends when user reaches perfect destination.
+							/**HotFix solution to make sure game ends when user reaches perfect destination.
+							 * 
+							 */
 							if(currRoomId == 7) {
 								System.out.println("You've reached the end! Congrats!");
 								System.exit(0);
 							}
 							
-							//Tells the user what direction they can go in
+							/**Tells the user what direction they can go in
+							 * 
+							 */
 							System.out.println("You can go "+ userOptions.toString());
 							System.out.println("What do you want to do? :");
 							String playerChoice = userInput.nextLine();
@@ -93,16 +98,13 @@ public class GameView {
 							for(String options: userOptions) {
 								if(playerChoice.equalsIgnoreCase(options)) { //West == West
 									playerIsRight= true;
-									//Exit temp = room.getAnExit(options); //stores the Exit object that has direction and id
 									currRoomId = gameRoomController.getRoomID(room, options);
 								
 								}
 							}
 							if(playerIsRight == false) {
-								System.out.println("Error. Please try again.");
+								System.out.println("Wrong Input. Please try again.");
 							}
-							//userOptions.removeAll(oldUserOptions);  //here we update the user options (e.g North, West becoming South, East)
-							//oldUserOptions.clear(); 
 							
 
 						}

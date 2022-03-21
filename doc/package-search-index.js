@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.minigame2"},{"l":"com.minigame2.controller"},{"l":"com.minigame2.data"},{"l":"com.minigame2.exception"},{"l":"com.minigame2.model"},{"l":"com.minigame2.service"},{"l":"com.minigame2.view"},{"l":"MiniGame2"}];updateSearchResults();

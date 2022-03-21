@@ -52,7 +52,8 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "Item [Id=" + Id + ", name=" + name + ", itemDescription=" + itemDescription + "]";
+		return "Item ID: "+this.getId()+"\n Item name: "+this.getName()+"\n Item description: "+this.getItemDescription()+" ";
+		//return "Item [Id=" + Id + ", name=" + name + ", itemDescription=" + itemDescription + "]";
 	}
 
 }

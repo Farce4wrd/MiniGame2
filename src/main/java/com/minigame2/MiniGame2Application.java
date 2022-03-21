@@ -28,18 +28,10 @@ public class MiniGame2Application{
 
 	public static void main(String[] args) throws GameDataException {
 		ConfigurableApplicationContext context = SpringApplication.run(MiniGame2Application.class, args);
-		GameRoomService service = new GameRoomService();
-		//GameRoomController gr = new GameRoomController();
 		GameView game = context.getBean(GameView.class);
 		game.start();
 		
-		//System.out.println(context.);
-		//var game = context.getBean("GameView", GameView.class);
-		//game.start();
 		
-//		GameRoomService service = new GameRoomService();
-//		GameRoomController gr = new GameRoomController(service);
-//		gr.ControllerStart();
 		
 	}
 	

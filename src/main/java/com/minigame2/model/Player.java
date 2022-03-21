@@ -16,7 +16,12 @@ public class Player {
 		backpack = new ArrayList<Item>();
 		lock = new ReentrantLock();
 	}
-	//Returns the inventory list in backpack
+	/**Returns the inventory list in backpack
+	 * 
+	 * Method: @return
+	 *
+	 * ArrayList<Item>
+	 */
 	public ArrayList<Item> getBackpack(){
 		lock.lock();
 		try {
@@ -26,7 +31,12 @@ public class Player {
 		}
 		
 	}
-	//add items to the backpack
+	/**add items to the backpack
+	 * 
+	 * Method: @param item
+	 *
+	 * void
+	 */
 	public void addItemToBackpack(Item item) {
 		lock.lock();
 		try {
@@ -38,7 +48,12 @@ public class Player {
 		
 	}
 	
-	//Removes item from backpack
+	/**Removes item from backpack
+	 * 
+	 * Method: @param item
+	 *
+	 * void
+	 */
 	public void removeFromBackpack(Item item) {
 		lock.lock();
 		try	{

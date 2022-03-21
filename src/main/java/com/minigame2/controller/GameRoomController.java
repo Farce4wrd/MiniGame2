@@ -25,6 +25,13 @@ public class GameRoomController {
 	
 	
 	@Autowired
+	/**Main controller responsible for all calls
+	 * 
+	 * @param service
+	 * @param itemService
+	 * @param player
+	 * @throws GameDataException
+	 */
 	public GameRoomController(GameRoomService service, ItemService itemService, Player player) throws GameDataException {
 		this.gameRoomService = service;
 		this.itemService = itemService;
@@ -32,7 +39,12 @@ public class GameRoomController {
 		ControllerStart();
 	}
 	
-	
+	/**Creates room and its items
+	 * 
+	 * Method: @throws GameDataException
+	 *
+	 * void
+	 */
 	public void ControllerStart() throws GameDataException {
 		try {
 			File itemFile = new File("item.txt");
@@ -87,32 +99,70 @@ public class GameRoomController {
 		
 	}
 	
-	//Provides the exit directions in a string arraylist for view component to hold user options
+	/**Provides the exit directions in a string arraylist for view component to hold user options
+	 * 
+	 * Method: @param id
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * ArrayList<String>
+	 */
 	public ArrayList<String> getRoomDirections(int id) throws GameDataException{
 		return gameRoomService.getRoomDirection(id);
 	}
 	
-	//Gets the next room id in the exit list
+	/**Gets the next room id in the exit list
+	 * 
+	 * Method: @param room
+	 * Method: @param direction
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * int
+	 */
 	public int getRoomID(GameRoom room, String direction) throws GameDataException {
 		return gameRoomService.getNextRoomId(room, direction);
 	}
-	//Provides the game rooms for the view component to iterate over if needed
+	/**Provides the game rooms for the view component to iterate over if needed
+	 * 
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * ArrayList<GameRoom>
+	 */
 	public ArrayList<GameRoom> getAllRooms() throws GameDataException{
 		return gameRoomService.getRooms();
 	}
-	//Tells the user if the game has been visited
+	/**Tells the user if the game has been visited
+	 * 
+	 * Method: @param room
+	 * Method: @throws GameDataException
+	 *
+	 * void
+	 */
 	public void setRoomVisit(GameRoom room) throws GameDataException{
 		 gameRoomService.setRoomVisited(room);
 	}
 	
-	//Calls the drop action in service --Drops item in room
+	/**Calls the drop action in service --Drops item in room
+	 * 
+	 * Method: @param item
+	 * Method: @param room
+	 *
+	 * void
+	 */
 	public void dropItem(Item item, GameRoom room) {
 		gameRoomService.dropItemInRoom(item, room);
 		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
 	
-	//To get items within a room for game view class
+	/**To get items within a room for game view class
+	 * 
+	 * Method: @param room
+	 *
+	 * void
+	 */
 	public void getItem(GameRoom room) {
 		ArrayList<Item> items = gameRoomService.getItemFromRoom(room);
 		if(items!=null) {
@@ -126,7 +176,15 @@ public class GameRoomController {
 		
 	}
 	
-	//Checks each user input for changes to item or other things
+	/**Checks each user input for changes to item or other things
+	 * 
+	 * Method: @param room
+	 * Method: @param playerChoice
+	 * Method: @return
+	 * Method: @throws GameDataException
+	 *
+	 * boolean
+	 */
 	public boolean verify(GameRoom room, String playerChoice) throws GameDataException {
 		boolean result = false;
 		//for user to respond to item/
@@ -164,6 +222,15 @@ public class GameRoomController {
 				//throw new GameDataException("Item can not be found in this room.");
 			}
 			result = true;
+		}
+		
+		//displays the current room's description, exit and items (if present)
+		if(playerChoice.equalsIgnoreCase("look")) {
+			System.out.println("Room description: "+ room.getDescription());
+			System.out.println("Exits: "+ gameRoomService.getRoomDirection(room.getId()));
+			System.out.println("Items: "+ gameRoomService.getItemFromRoom(room));
+			return true;
+			
 		}
 		
 		//checks for inventory in backpack
