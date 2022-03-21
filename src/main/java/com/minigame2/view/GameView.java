@@ -30,7 +30,7 @@ public class GameView {
 		boolean isRunning = true;
 		boolean firstLoad = true;
 		Scanner userInput = new Scanner(System.in);
-		userInput.useDelimiter(System.lineSeparator());
+		//userInput.useDelimiter(System.lineSeparator());
 		
 		//Game loading begins
 		while(isRunning) {
@@ -42,7 +42,7 @@ public class GameView {
 				System.out.println("Type start to continue, else type stop: ");
 				firstLoad= false;
 			}
-			String player = userInput.next();
+			String player = userInput.nextLine();
 			
 
 			if(player.equals("stop")) {
