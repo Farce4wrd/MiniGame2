@@ -8,6 +8,7 @@ public class GameDataException extends IOException {
 		super();
 	}
 	
+	
 	public GameDataException(String message) {
 		super(message);
 	}
