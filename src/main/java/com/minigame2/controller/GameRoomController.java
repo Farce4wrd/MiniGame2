@@ -19,7 +19,7 @@ import com.minigame2.service.ItemService;
 @Controller
 public class GameRoomController {
 	
-	private GameRoomService gameRoomService;
+	//private GameRoomService gameRoomService;
 	private ItemService itemService;
 	private Player player;
 	
@@ -32,8 +32,8 @@ public class GameRoomController {
 	 * @param player
 	 * @throws GameDataException
 	 */
-	public GameRoomController(GameRoomService service, ItemService itemService, Player player) throws GameDataException {
-		this.gameRoomService = service;
+	public GameRoomController( ItemService itemService, Player player) throws GameDataException {
+		
 		this.itemService = itemService;
 		this.player = player;
 		ControllerStart();
@@ -84,11 +84,11 @@ public class GameRoomController {
 				}
 				String description = fileReader.nextLine();
 				ArrayList<Item> it = new ArrayList<Item>();
-				gameRoomService.createRoom(id, name, description, false, it, exitList);
+				//gameRoomService.createRoom(id, name, description, false, it, exitList);
 				
 			}
 			//randomly generate the items in rooms
-			gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
+			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
 
 	
 		} catch (FileNotFoundException e) {
@@ -108,7 +108,7 @@ public class GameRoomController {
 	 * ArrayList<String>
 	 */
 	public ArrayList<String> getRoomDirections(int id) throws GameDataException{
-		return gameRoomService.getRoomDirection(id);
+		return null; //gameRoomService.getRoomDirection(id);
 	}
 	
 	/**Gets the next room id in the exit list
@@ -121,7 +121,7 @@ public class GameRoomController {
 	 * int
 	 */
 	public int getRoomID(GameRoom room, String direction) throws GameDataException {
-		return gameRoomService.getNextRoomId(room, direction);
+		return 0;//gameRoomService.getNextRoomId(room, direction);
 	}
 	/**Provides the game rooms for the view component to iterate over if needed
 	 * 
@@ -131,7 +131,7 @@ public class GameRoomController {
 	 * ArrayList<GameRoom>
 	 */
 	public ArrayList<GameRoom> getAllRooms() throws GameDataException{
-		return gameRoomService.getRooms();
+		return null;//gameRoomService.getRooms();
 	}
 	/**Tells the user if the game has been visited
 	 * 
@@ -141,7 +141,7 @@ public class GameRoomController {
 	 * void
 	 */
 	public void setRoomVisit(GameRoom room) throws GameDataException{
-		 gameRoomService.setRoomVisited(room);
+		 //gameRoomService.setRoomVisited(room);
 	}
 	
 	/**Calls the drop action in service --Drops item in room
@@ -152,7 +152,7 @@ public class GameRoomController {
 	 * void
 	 */
 	public void dropItem(Item item, GameRoom room) {
-		gameRoomService.dropItemInRoom(item, room);
+		//gameRoomService.dropItemInRoom(item, room);
 		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
@@ -212,7 +212,7 @@ public class GameRoomController {
 				if(playerChoice.equalsIgnoreCase("get " +it.getName())) {
 					itemInRoom = true;
 					player.addItemToBackpack(it);
-					gameRoomService.removeItemFromRoom(it, room);	//to remove item from room
+					//gameRoomService.removeItemFromRoom(it, room);	//to remove item from room
 					break;
 				}
 			}
@@ -227,8 +227,8 @@ public class GameRoomController {
 		//displays the current room's description, exit and items (if present)
 		if(playerChoice.equalsIgnoreCase("look")) {
 			System.out.println("Room description: "+ room.getDescription());
-			System.out.println("Exits: "+ gameRoomService.getRoomDirection(room.getId()));
-			System.out.println("Items: "+ gameRoomService.getItemFromRoom(room));
+//			System.out.println("Exits: "+ gameRoomService.getRoomDirection(room.getId()));
+//			System.out.println("Items: "+ gameRoomService.getItemFromRoom(room));
 			return true;
 			
 		}

@@ -2,11 +2,17 @@ package com.minigame2.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-
+@Entity
+@Table(name="ROOM")
 public class GameRoom {
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
 	private String name;
 	private String description;
@@ -22,6 +28,7 @@ public class GameRoom {
 	public GameRoom() {
 		
 	}
+	
 	//Constructor
 	public GameRoom(int Id) {
 		this.id = Id;
@@ -36,10 +43,9 @@ public class GameRoom {
 	 * @param items
 	 * @param exits
 	 */
-	public GameRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items,
+	public GameRoom(String name, String description, boolean hasVisited, ArrayList<Item> items,
 			ArrayList<Exit> exits) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.hasVisited = hasVisited;

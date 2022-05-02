@@ -1,8 +1,15 @@
 package com.minigame2.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Item {
-	
-	private int Id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer Id;
 	private String name;
 	private String itemDescription;
 	//private GameRoom room;
@@ -17,13 +24,13 @@ public class Item {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return Id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		Id = id;
 	}
 	/**

@@ -1,0 +1,122 @@
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one.'
+Consumable
+50
+1
+Key Card 0013
+The card reads '0013'. You wonder what it may be for.
+Puzzle
+2
+Knife
+The standard pocket knife, just in case of trouble
+Weapon
+Human
+1
+50
+3
+Syringe
+A bag with a syringe in it appears in the room. A note on the bag says, 'Using it is the only way to beat them'
+Consumable 
+30
+3
+Big Box
+A big wooden box is seen after beating that thing. The top of it says 'DEFENSE UPGRADES'. You think 'I bet there�s some stuff in there I can use for my weapons.'
+Consumable
+1
+5
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one'.
+Consumable
+50
+6
+Machete
+A gently used machete
+Weapon
+Human
+1
+80
+8
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one'.
+Consumable
+50
+11
+Archangel Blade
+A small, pure silver dagger with wings on either side of the handle
+Weapon
+Supernatural
+1
+50
+14
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one'.
+Consumable
+50
+16
+Key Card 0067
+The card reads '0067'. You wonder what it may be for.
+Puzzle
+16
+Blessed Revolver
+A 6 shooter that had a note attached. 'Blessed by Father Gasciogne himself'
+Weapon
+Supernatural
+1
+80
+17
+Key Card 0078
+The card reads '0078'. You wonder what it may be for.
+Puzzle
+17
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one'.
+Consumable
+50
+18
+Key Card 0091
+The card reads '0091'. You wonder what it may be for.
+Puzzle
+19
+Syringe
+A bag with a syringe in it appears in the room. A note on the bag says, 'Using it is the only way to beat them'
+Consumable 
+30
+20
+Big Box
+A big wooden box is seen after beating that thing. The top of it says 'DEFENSE UPGRADES'. You think 'I bet there�s some stuff in there I can use for my weapons.'
+Consumable
+1
+21
+Assult Rifle
+A modern assult rifle
+Weapon
+Human
+1
+110
+21
+Key Card 0053
+The card reads '0053'. You wonder what it may be for.
+Puzzle
+22
+Bandage
+There�s a bandage lying on the ground. You think to yourself 'I bet I can heal myself up if I use one'.
+Consumable
+50
+23
+Righteous Bone Sword
+A long sword with a sharpened human femur as a blade. The tip is blood red and the hilt is black with a ram�s head in the middle.
+Weapon
+Supernatural
+1
+110
+23
+Syringe
+A bag with a syringe in it appears in the room. A note on the bag says, 'Using it is the only way to beat them'
+Consumable
+30
+25
+Big Box
+A big wooden box is seen after beating that thing. The top of it says 'DEFENSE UPGRADES'. You think 'I bet there�s some stuff in there I can use for my weapons.'
+Consumable
+1
+28

@@ -1,6 +1,10 @@
 package com.minigame2.model;
 import java.util.ArrayList;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * 
  */
@@ -13,10 +17,13 @@ import java.util.ArrayList;
  * 
  * This class is responsible for encapsulating the room id of other room objects and directions which would be used for user options.
  */
+
 public class Exit {
-	
-	private String direction;
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int roomId;
+	private String direction;
+	
 	
 	public Exit(String direction, int roomId) {
 		this.direction = direction;

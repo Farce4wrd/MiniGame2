@@ -1,0 +1,11 @@
+Righteous Bone Sword
+A long sword with a sharpened human femur as a blade. The tip is blood red and the hilt is black with a ram’s head in the middle.
+Supernatural
+1
+23
+
+Knife
+The standard pocket knife, just in case of trouble
+Human
+50
+3

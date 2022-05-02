@@ -1,17 +1,26 @@
 package com.minigame2.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.minigame2.data.GameRoomRepository;
 import com.minigame2.exception.GameDataException;
 import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 
-@Service
+
 public class GameRoomService {
+
+	private GameRoomRepository gameRoomRepository;
+	
+	@Autowired
+	public GameRoomService(GameRoomRepository repo) {
+		this.gameRoomRepository = repo;
+	}
 	
 	private ArrayList<GameRoom> gameRooms = new ArrayList<GameRoom>();
 	
@@ -26,11 +35,29 @@ public class GameRoomService {
 	 *
 	 * void
 	 */
-	public void createRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items, ArrayList<Exit> exits) {
-		GameRoom room = new GameRoom(id, name, description, hasVisited, items, exits);
-		this.gameRooms.add(room);
-		
+//	public void createRoom(int id, String name, String description, boolean hasVisited, ArrayList<Item> items, ArrayList<Exit> exits) {
+//		GameRoom room = new GameRoom(id, name, description, hasVisited, items, exits);
+//		this.gameRooms.add(room);
+//		
+//	}
+//	
+	//Adds rooom to the database
+	public GameRoom addRoom(GameRoom room) {
+		return gameRoomRepository.save(room);
 	}
+	//retrieves rooms from the database
+	public List<GameRoom> getRooms(){
+		List<GameRoom> rooms = new ArrayList<GameRoom>();
+		for(GameRoom room: this.gameRoomRepository.findAll()) {
+			rooms.add(room);
+		}
+		return rooms;
+	}
+	public void deleteRoom(GameRoom room) {
+		this.gameRoomRepository.delete(room);
+	}
+	
+	
 	/**Retrieve all the rooms
 	 * 
 	 * Method: 
@@ -49,7 +76,7 @@ public class GameRoomService {
 	 *
 	 * ArrayList<GameRoom>
 	 */
-	public ArrayList<GameRoom> getRooms() {
+	public ArrayList<GameRoom> getRoomss() {
 		return this.gameRooms;
 	}
 	
