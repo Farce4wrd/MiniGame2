@@ -1,9 +1,15 @@
 package com.minigame2.model;
-import java.util.ArrayList;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -17,17 +23,23 @@ import javax.persistence.Id;
  * 
  * This class is responsible for encapsulating the room id of other room objects and directions which would be used for user options.
  */
-
+@Entity
+@Table(name="EXIT", schema="EXIT")
 public class Exit {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private int roomId;
+	private int id;
+	private int roomid;
 	private String direction;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="room_id")
+	private GameRoom room;
 	
 	public Exit(String direction, int roomId) {
 		this.direction = direction;
-		this.roomId = roomId;
+		this.roomid = roomId;
+
 	}
 
 	public String getDirection() {
@@ -39,11 +51,11 @@ public class Exit {
 	}
 
 	public int getRoomId() {
-		return roomId;
+		return roomid;
 	}
 
 	public void setRoomId(int roomId) {
-		this.roomId = roomId;
+		this.roomid = roomId;
 	}
 
 }

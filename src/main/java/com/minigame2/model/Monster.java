@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="MONSTER", schema="MONSTER")
 public class Monster {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,6 +18,10 @@ public class Monster {
 	private String name; 
 	private int hp;
 	private int damage;
+	@ManyToOne
+	@JoinColumn(name="monsters_id")
+	private GameRoom room;
+	
 	
 	private Monster(Integer id, boolean isBoss, String name, int hp, int damage) {
 		this.id = id;

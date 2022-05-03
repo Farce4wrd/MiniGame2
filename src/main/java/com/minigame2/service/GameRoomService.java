@@ -88,15 +88,15 @@ public class GameRoomService {
 	 *
 	 * ArrayList<String>
 	 */
-	public ArrayList<String> getRoomDirection(int roomId) throws GameDataException{
-		ArrayList<String> roomDirections = new ArrayList<String>();
-		for(GameRoom room: gameRooms) {
-			if(room.getId() == roomId) {
-				roomDirections = room.getExits();
-			}
-		}
-		return roomDirections;
-	}
+//	public ArrayList<String> getRoomDirection(int roomId) throws GameDataException{
+//		ArrayList<String> roomDirections = new ArrayList<String>();
+//		for(GameRoom room: gameRooms) {
+//			if(room.getId() == roomId) {
+//				roomDirections = room.getExits();
+//			}
+//		}
+//		return roomDirections;
+//	}
 	/**Code gets the exit id that links to other rooms
 	 * 
 	 * Method: @param room
@@ -106,16 +106,16 @@ public class GameRoomService {
 	 *
 	 * int
 	 */
-	public int getNextRoomId(GameRoom room, String direction) throws GameDataException {
-		int result = 0;
-		for(Exit ex: room.getAllExitObject()) {
-			if(ex.getDirection().equals(direction)) {
-				result = ex.getRoomId();
-			}
-		}
-		return result;
-		
-	}
+//	public int getNextRoomId(GameRoom room, String direction) throws GameDataException {
+//		int result = 0;
+//		for(Exit ex: room.getAllExitObject()) {
+//			if(ex.getDirection().equals(direction)) {
+//				result = ex.getRoomId();
+//			}
+//		}
+//		return result;
+//		
+//	}
 	
 	/**Inform the user the room has been visited
 	 * 
@@ -175,9 +175,9 @@ public class GameRoomService {
 	 *
 	 * ArrayList<Item>
 	 */
-	public ArrayList<Item> getItemFromRoom(GameRoom room) {
-		return room.getItems();
-	}
+//	public ArrayList<Item> getItemFromRoom(GameRoom room) {
+//		return room.getItems();
+//	}
 	
 	
 

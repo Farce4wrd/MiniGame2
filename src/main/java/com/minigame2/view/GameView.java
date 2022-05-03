@@ -65,7 +65,7 @@ public class GameView {
 					for(GameRoom room: gameRoomController.getAllRooms()) { //list of rooms
 						if(room.getId() == currRoomId) {
 							System.out.println(room);
-							gameRoomController.getItem(room);
+							//gameRoomController.getItem(room);
 							gameRoomController.setRoomVisit(room);
 							
 							

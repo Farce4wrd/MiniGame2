@@ -42,8 +42,6 @@ public class MiniGame2Application{
 	@Bean
 	CommandLineRunner commandLineRunner(GameRoomRepository gameRoomRepository) {
 		return args ->{
-			CreateInsert cr = new CreateInsert();
-			cr.createQuery();
 //			GameRoom room1 = new GameRoom("Peter", "coding", true, null, null);
 //			gameRoomRepository.save(room1);
 //			ArrayList<GameRoom> rooms = new ArrayList<GameRoom>();

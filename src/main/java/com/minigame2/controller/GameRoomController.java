@@ -163,18 +163,18 @@ public class GameRoomController {
 	 *
 	 * void
 	 */
-	public void getItem(GameRoom room) {
-		ArrayList<Item> items = gameRoomService.getItemFromRoom(room);
-		if(items!=null) {
-			for(Item item: items) {
-				System.out.println("Oh! There's something here..");
-				System.out.println(item.getName());
-			}
-		}else {
-			System.out.println("No items here");
-		}
-		
-	}
+//	public void getItem(GameRoom room) {
+//		ArrayList<Item> items = gameRoomService.getItemFromRoom(room);
+//		if(items!=null) {
+//			for(Item item: items) {
+//				System.out.println("Oh! There's something here..");
+//				System.out.println(item.getName());
+//			}
+//		}else {
+//			System.out.println("No items here");
+//		}
+//		
+//	}
 	
 	/**Checks each user input for changes to item or other things
 	 * 

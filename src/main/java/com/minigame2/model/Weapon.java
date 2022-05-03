@@ -6,10 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Weapon{
-	@Id
+public class Weapon extends Item{
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private Integer id;
 	private String name;
 	private String description;
 	private String type;
@@ -19,9 +17,10 @@ public class Weapon{
 	
 
 	public Weapon(Integer id, String name, String description, String type, int level, int damage, String weaponType) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
+		//this.id = id;
+		super(id, name, description);
+		//this.name = name;
+		//this.description = description;
 		this.type = type;
 		this.level = level;
 		this.damage = damage;
@@ -53,13 +52,13 @@ public class Weapon{
 		Weapon.weaponType = weaponType;
 	}
 
-	public Integer getId() {
-		return id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public String getName() {
 		return name;

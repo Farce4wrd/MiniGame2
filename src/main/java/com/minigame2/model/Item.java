@@ -4,15 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="ITEMS")
 public class Item {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
 	private String name;
 	private String itemDescription;
-	//private GameRoom room;
+	@ManyToOne
+	@JoinColumn(name="items_id")
+	private GameRoom room;
 	
 	public Item(int id, String name, String itemDescrip) {
 		this.Id = id;

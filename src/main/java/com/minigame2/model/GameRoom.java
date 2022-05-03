@@ -1,11 +1,15 @@
 package com.minigame2.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,9 +20,13 @@ public class GameRoom {
 	private int id;
 	private String name;
 	private String description;
-	private boolean hasVisited;
-	private ArrayList<Item> items = new ArrayList<Item>();
-	private ArrayList<Exit> exits;
+	private String hasvisited;
+	@OneToMany(mappedBy="room",cascade=CascadeType.ALL)
+	private List<Item> items;
+	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Exit> exits = new ArrayList<>();
+	@OneToMany(mappedBy="room")
+	private List<Monster> monsters;
 	
 	
 	
@@ -43,14 +51,14 @@ public class GameRoom {
 	 * @param items
 	 * @param exits
 	 */
-	public GameRoom(String name, String description, boolean hasVisited, ArrayList<Item> items,
-			ArrayList<Exit> exits) {
+	public GameRoom(String name, String description, String hasVisited) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.hasVisited = hasVisited;
-		this.items = items;
-		this.exits = exits;
+		this.hasvisited = hasVisited;
+//		this.items = items;
+//		this.exits = exits;
+//		this.monsters=monsters;
 	}
 	/**
 	 * @return the id
@@ -91,14 +99,14 @@ public class GameRoom {
 	/**
 	 * @return the hasVisited
 	 */
-	public boolean isHasVisited() {
-		return hasVisited;
+	public String isHasVisited() {
+		return hasvisited;
 	}
 	/**
-	 * @param hasVisited the hasVisited to set
+	 * @param hasvisited the hasVisited to set
 	 */
 	public void setHasVisited() {
-		this.hasVisited = true;
+		this.hasvisited = "TRUE";
 	}
 	
 	/**To add items to a room
@@ -127,7 +135,7 @@ public class GameRoom {
 	 *
 	 * ArrayList<Item>
 	 */
-	public ArrayList<Item> getItems(){
+	public List<Item> getItems(){
 		return this.items;
 	}
 	
@@ -137,14 +145,14 @@ public class GameRoom {
 	 *
 	 * ArrayList<String>
 	 */
-	public ArrayList<String> getExits(){
-		ArrayList<String> exitDirections = new ArrayList<String>();
-		for(Exit ex: exits) {
-			String direction = ex.getDirection();
-			exitDirections.add(direction);
-		}
-		return exitDirections;
-	}
+//	public ArrayList<String> getExits(){
+//		ArrayList<String> exitDirections = new ArrayList<String>();
+//		for(Exit ex: exits) {
+//			String direction = ex.getDirection();
+//			exitDirections.add(direction);
+//		}
+//		return exitDirections;
+//	}
 	
 	/**To retrieve all exit objects
 	 * 
@@ -152,14 +160,14 @@ public class GameRoom {
 	 *
 	 * ArrayList<Exit>
 	 */
-	public ArrayList<Exit> getAllExitObject(){
-		return this.exits;
-	}
-	
+//	public ArrayList<Exit> getAllExitObject(){
+//		return this.exits;
+//	}
+//	
 	@Override
 	public String toString() {
 		String visit="";
-		if(this.isHasVisited()== true) {
+		if(this.isHasVisited()== "TRUE") {
 			visit ="Has visited";
 		}else {
 			visit ="Has not visited";
@@ -167,6 +175,18 @@ public class GameRoom {
 		System.out.println(this.getName()+": "+ visit);
 		return this.description;
 		//return "GameRoom [description=" + description + "You can go " + result + "]";
+	}
+
+	public List<Monster> getMonsters() {
+		return monsters;
+	}
+
+	public void setMonsters(ArrayList<Monster> monsters) {
+		this.monsters = monsters;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
 	}
 
 }
