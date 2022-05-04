@@ -12,7 +12,7 @@ import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 
-
+@Service
 public class GameRoomService {
 
 	private GameRoomRepository gameRoomRepository;

@@ -1,0 +1,60 @@
+True
+Disturbed Patient
+Human
+80
+25
+5
+False
+Regular human
+Human
+50
+20
+9
+True
+Dr.Zhikov
+Human
+100
+30
+10
+False
+Regular human
+Human
+50
+20
+12
+True
+Cracked Head Patient
+Human
+120
+35
+15
+False
+Regular Human
+Human
+50
+20
+16
+True
+Eyeless Nurse
+supernatural
+150
+35
+18
+True
+Director Jankovic
+supernatural
+150
+35
+21
+False
+random enemy
+Human
+50
+20
+24
+True
+Final Demon
+supernatural
+200
+45
+30

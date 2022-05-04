@@ -18,13 +18,17 @@ public class Monster {
 	private String name; 
 	private int hp;
 	private int damage;
+	private String variety;
 	@ManyToOne
-	@JoinColumn(name="monsters_id")
+	@JoinColumn(name="monsters_roomid")
 	private GameRoom room;
 	
+	public Monster() {
+		
+	}
 	
-	private Monster(Integer id, boolean isBoss, String name, int hp, int damage) {
-		this.id = id;
+	
+	private Monster( boolean isBoss, String name, int hp, int damage) {
 		this.isBoss = isBoss;
 		this.name = name;
 		this.hp = hp;
@@ -61,6 +65,13 @@ public class Monster {
 
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Monster [id=" + id + ", isBoss=" + isBoss + ", name=" + name + ", hp=" + hp + ", damage=" + damage
+				+ ", variety=" + variety + ", room=" + room + "]";
 	}
 	
 	

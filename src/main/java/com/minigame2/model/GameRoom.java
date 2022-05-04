@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,8 +27,11 @@ public class GameRoom {
 	private List<Item> items;
 	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Exit> exits = new ArrayList<>();
-	@OneToMany(mappedBy="room")
+	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	private List<Monster> monsters;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="character_id")
+	private Character character;
 	
 	
 	

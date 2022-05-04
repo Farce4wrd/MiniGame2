@@ -8,6 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Player {
+	private String name;
+	private int hp;
+	private int life;
+	private int points;
+	private int level;
+	
+	private GameRoom room;
 	
 	private ArrayList<Item> backpack;
 	private ReentrantLock lock;
@@ -62,6 +69,42 @@ public class Player {
 			lock.unlock();
 		}
 		
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getLife() {
+		return life;
+	}
+	public void setLife(int life) {
+		this.life = life;
+	}
+	public int getPoints() {
+		return points;
+	}
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public GameRoom getRoom() {
+		return room;
+	}
+	public void setRoom(GameRoom room) {
+		this.room = room;
 	}
 
 }

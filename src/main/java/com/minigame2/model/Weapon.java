@@ -5,39 +5,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+
 public class Weapon extends Item{
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private String name;
 	private String description;
-	private String type;
+	private String variety;
 	private static int level;
 	private static int damage;
 	private static String weaponType;
 	
 
-	public Weapon(Integer id, String name, String description, String type, int level, int damage, String weaponType) {
+	public Weapon(String name, String description, String type, int level, int damage, String weaponType) {
 		//this.id = id;
-		super(id, name, description);
+		super(name, description, type);
 		//this.name = name;
 		//this.description = description;
-		this.type = type;
+		this.variety = type;
 		this.level = level;
 		this.damage = damage;
 		this.weaponType = weaponType;
 	}
 
-	public static int getLevel() {
-		return level;
-	}
+//	public static int getLevel() {
+//		return level;
+//	}
 
 	public static void setLevel(int level) {
 		level = level;
 	}
 
-	public static int getDamage() {
-		return damage;
-	}
+//	public static int getDamage() {
+//		return damage;
+//	}
 
 	
 	public static void setDamage(int damage) {
@@ -77,11 +77,11 @@ public class Weapon extends Item{
 	}
 
 	public String getType() {
-		return type;
+		return variety;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.variety = type;
 	}
 	
 	

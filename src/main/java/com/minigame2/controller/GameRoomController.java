@@ -20,7 +20,7 @@ import com.minigame2.service.ItemService;
 public class GameRoomController {
 	
 	//private GameRoomService gameRoomService;
-	private ItemService itemService;
+	//private ItemService itemService;
 	private Player player;
 	
 	
@@ -34,7 +34,7 @@ public class GameRoomController {
 	 */
 	public GameRoomController( ItemService itemService, Player player) throws GameDataException {
 		
-		this.itemService = itemService;
+		//this.itemService = itemService;
 		this.player = player;
 		ControllerStart();
 	}
@@ -53,7 +53,7 @@ public class GameRoomController {
 				int id = Integer.parseInt(itemReader.nextLine());
 				String name = itemReader.nextLine();
 				String description = itemReader.nextLine();
-				itemService.createItems(id, name, description);
+				//itemService.createItems(id, name, description);
 			}
 		}catch(Exception ex) {
 			throw new GameDataException("Error occured while reading the text file");
@@ -252,7 +252,7 @@ public class GameRoomController {
 			for(Item it: room.getItems()) {
 				if(playerChoice.equalsIgnoreCase("inspect " +it.getName())) {
 					itemInRoom = true;
-					itemService.inspect(it);
+					//itemService.inspect(it);
 				}
 			}
 			if(itemInRoom == false) {
