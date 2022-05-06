@@ -1,5 +1,8 @@
-package view;
+package com.minigame2.view;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Command {
 	
 	private String name;
@@ -22,8 +25,11 @@ public class Command {
 		return description;
 	}
 
+	public Command() {
+		
+	}
+	
 	public Command(String name, String description, Runnable action) {
-		super();
 		this.name = name;
 		this.description = description;
 		this.action = action;

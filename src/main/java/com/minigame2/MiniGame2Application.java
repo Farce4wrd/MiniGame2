@@ -20,7 +20,12 @@ import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
+import com.minigame2.view.Adventure;
 import com.minigame2.view.GameView;
+
+import javafx.application.Application;
+
+
 
 
 
@@ -33,9 +38,10 @@ public class MiniGame2Application{
     private ApplicationContext appContext;
 
 	public static void main(String[] args) throws GameDataException {
-		ConfigurableApplicationContext context = SpringApplication.run(MiniGame2Application.class, args);
-		GameView game = context.getBean(GameView.class);
-		game.start();
+		Application.launch(Adventure.class, args);
+		//ConfigurableApplicationContext context = SpringApplication.run(MiniGame2Application.class, args);
+		//GameView game = context.getBean(GameView.class);
+		//game.start();
 		
 		
 		
@@ -47,6 +53,8 @@ public class MiniGame2Application{
 			GameRoom games = gr.getRoom(15);
 			System.out.println(games);
 			//List<Item> items = gr.getWeapons();
+//			ItemService gr = new ItemService(itemRepo);
+//			List<Item> items = gr.getWeapons();
 //			items.forEach(monster ->{
 //				System.out.println(monster);
 //			});
@@ -64,6 +72,8 @@ public class MiniGame2Application{
 //			}
 		};
 	}
+	
+	
 	
 	
 	

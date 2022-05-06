@@ -1,12 +1,18 @@
 package com.minigame2.view;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
+
+import com.minigame2.MiniGame2Application;
+
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,15 +21,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-//import service.CharacterDAOImpl;
 
 
 public class Adventure extends Application {
-	//private static Stage stg;
-	//private static CharacterDAOImpl chara;
+	private ConfigurableApplicationContext applicationContext;
 	
-	TextArea output = new TextArea();
-	TextField input = new TextField();
+	private TextArea output = new TextArea();
+	private TextField input = new TextField();
 	
 	//Stores all the user commands.
 	private Map<String, Command> commands = new HashMap<>();
@@ -83,21 +87,20 @@ public class Adventure extends Application {
 		});
 	}
 	
+	
 	public void changeScene() {
 		//stg.getScene().setRoot(createContent());
 	}
 	
 	
-
-	public static void main(String[] args) throws SQLException {
-		 //chara = new CharacterDAOImpl();
-		Application.launch(Adventure.class, args);
-		
-
+	@Override
+	public void init(){
+		this.applicationContext= new SpringApplicationBuilder(MiniGame2Application.class).run();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		applicationContext.publishEvent(new StageReadyEvent(primaryStage));
 		//stg = primaryStage;
 		//Parent root =FXMLLoader.load(getClass().getResource("Adventure.fxml"));
 		//primaryStage.setTitle("Login Screen");
@@ -107,5 +110,20 @@ public class Adventure extends Application {
 		primaryStage.show();
 		
 	}
+	@Override
+	public void stop() {
+		applicationContext.close();
+		Platform.exit();
+	}
+	static class StageReadyEvent extends ApplicationEvent {
+		public StageReadyEvent(Stage stage) {
+			super(stage);
+		}
+		public Stage getStage() {
+			return ((Stage) getSource());
+		}
+	}
 
+
+	
 }
