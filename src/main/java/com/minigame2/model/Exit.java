@@ -39,7 +39,6 @@ public class Exit {
 	public Exit(String direction, int roomId) {
 		this.direction = direction;
 		this.roomid = roomId;
-
 	}
 
 	public String getDirection() {

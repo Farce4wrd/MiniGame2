@@ -12,11 +12,11 @@ public class Weapon extends Item{
 	private String description;
 	private String variety;
 	private static int level;
-	private static int damage;
+	private String damage;
 	private static String weaponType;
 	
 
-	public Weapon(String name, String description, String type, int level, int damage, String weaponType) {
+	public Weapon(String name, String description, String type, int level, String damage, String weaponType) {
 		//this.id = id;
 		super(name, description, type);
 		//this.name = name;
@@ -31,21 +31,22 @@ public class Weapon extends Item{
 //		return level;
 //	}
 
-	public static void setLevel(int level) {
-		level = level;
-	}
-
-//	public static int getDamage() {
-//		return damage;
+//	public static void setLevel(int level) {
+//		level = level;
 //	}
 
-	
-	public static void setDamage(int damage) {
-		damage = damage;
-	}
+
 
 	public static String getWeaponType() {
 		return weaponType;
+	}
+
+	public String getDamage() {
+		return damage;
+	}
+
+	public void setDamage(String damage) {
+		this.damage = damage;
 	}
 
 	public static void setWeaponType(String weaponType) {

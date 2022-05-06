@@ -36,16 +36,7 @@ public class Character {
 		this.name = name;
 		this.location = location;
 		this.inventory = new ArrayList<Item>();
-		if(hp>50) {
-			this.hp=50;
-		}else {
-			this.hp = hp;
-		}
-		if(life>3) {
-			this.life=3;
-		}else {
-			this.life = hp;
-		}
+		this.hp = 50; //for now...
 		this.points = points;
 		this.level = 0;
 	}
@@ -81,7 +72,7 @@ public class Character {
 	}
 
 	public void setHp(int hp) {
-		hp = hp;
+		this.hp = hp;
 	}
 
 	public int getLife() {

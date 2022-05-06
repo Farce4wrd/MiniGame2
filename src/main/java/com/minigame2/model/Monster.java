@@ -67,6 +67,15 @@ public class Monster {
 		this.damage = damage;
 	}
 
+	public String getVariety() {
+		return variety;
+	}
+
+
+	public void setVariety(String variety) {
+		this.variety = variety;
+	}
+
 
 	@Override
 	public String toString() {

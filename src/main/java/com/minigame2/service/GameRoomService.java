@@ -57,6 +57,11 @@ public class GameRoomService {
 		this.gameRoomRepository.delete(room);
 	}
 	
+	public GameRoom getRoom(int id)
+	{
+		return this.gameRoomRepository.findByid(id);
+	}
+	
 	
 	/**Retrieve all the rooms
 	 * 
@@ -64,11 +69,11 @@ public class GameRoomService {
 	 *
 	 * void
 	 */
-	public void listAllRooms() {
-		for(GameRoom room: gameRooms) {
-			System.out.println(room);
-		}
-	}
+//	public void listAllRooms() {
+//		for(GameRoom room: gameRooms) {
+//			System.out.println(room);
+//		}
+//	}
 	
 	/**code to get the rooms created in an arraylist
 	 * 

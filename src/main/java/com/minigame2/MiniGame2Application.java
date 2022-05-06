@@ -16,7 +16,9 @@ import com.minigame2.data.GameRoomRepository;
 import com.minigame2.data.ItemRepository;
 import com.minigame2.data.MonsterRepository;
 import com.minigame2.exception.GameDataException;
+import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
+import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
 import com.minigame2.view.GameView;
 
@@ -41,11 +43,13 @@ public class MiniGame2Application{
 	@Bean
 	CommandLineRunner commandLineRunner(ItemRepository itemRepo,GameRoomRepository roomRepo, MonsterRepository monsterRepo) {
 		return args ->{
-			ItemService gr = new ItemService(itemRepo);
-			List<Item> items = gr.getWeapons();
-			items.forEach(monster ->{
-				System.out.println(monster);
-			});
+			GameRoomService gr = new GameRoomService(roomRepo);
+			GameRoom games = gr.getRoom(15);
+			System.out.println(games);
+			//List<Item> items = gr.getWeapons();
+//			items.forEach(monster ->{
+//				System.out.println(monster);
+//			});
 			//GameRoomService gr = new GameRoomService(roomRepo);
 			//List<GameRoom> items = gr.getRooms();
 			//items.forEach(monster ->{

@@ -3,6 +3,8 @@ package com.minigame2.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +14,19 @@ import com.minigame2.exception.GameDataException;
 import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
+import com.minigame2.model.Monster;
 import com.minigame2.model.Player;
+import com.minigame2.model.Weapon;
+import com.minigame2.model.Character;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
+import com.minigame2.service.MonsterService;
 
 @Controller
 public class GameRoomController {
 	
-	//private GameRoomService gameRoomService;
-	//private ItemService itemService;
+	private GameRoomService gameRoomService;
+	private ItemService itemService;
 	private Player player;
 	
 	
@@ -32,7 +38,7 @@ public class GameRoomController {
 	 * @param player
 	 * @throws GameDataException
 	 */
-	public GameRoomController( ItemService itemService, Player player) throws GameDataException {
+	public GameRoomController( ItemService itemService, Player player, GameRoomService grs, MonsterService ms) throws GameDataException {
 		
 		//this.itemService = itemService;
 		this.player = player;
@@ -156,6 +162,98 @@ public class GameRoomController {
 		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
+	
+	/**Starts player combat loop
+	 * 
+	 * Method: @param Weapon weapon
+	 * Method: @param Monster monster
+	 * Method: @param Character character
+	 * 
+	 */
+	public String combat(Weapon weapon, Monster monster, Character character)
+	{
+		int monsterHp = monster.getHp();
+		Random rand = new Random();
+		int monsterDamage = rand.nextInt(monster.getDamage());
+		String monsterType = monster.getVariety();
+		
+		int playerHp = character.getHp();
+		int weaponDamage = Integer.parseInt(weapon.getDamage());
+		String weaponType = weapon.getVariety();
+		
+		while(monsterHp > 0)
+		{
+			if(weaponType.equalsIgnoreCase(monsterType))
+			{
+				character.setHp(playerHp - monsterDamage);
+				monster.setHp(monsterHp - weaponDamage);
+				return "Your hp: " + playerHp + "\nMonster hp: " + monsterHp;
+			}
+			else
+			{
+				character.setHp(playerHp - monsterDamage);
+				return "Your hp: " + playerHp + "\nMonster hp: " + monsterHp + "\nWrong weapon type! You did not do any damage";
+			}
+		}
+		if(monsterHp <= 0)
+		{
+			
+			return monster.getName() + " has been defeated!";
+		}
+		else
+		{
+			return "\n";
+		}
+	}
+	
+	/**Player movement method
+	 * 
+	 * Method: @param GameRoom room
+	 * Method: @param Character character
+	 * Note: I un commented the exits arraylist getters and setters to make this work
+	 */
+	
+	public String move(Character character, String direction)
+	{
+		GameRoom currentLocation = character.getLocation();
+		List<Exit> exits = currentLocation.getAllExitObject();
+		for(Exit e : exits)
+		{
+			if(direction.equalsIgnoreCase(e.getDirection()))
+			{
+				int i = e.getRoomId();
+				character.setLocation(this.gameRoomService.getRoom(i));
+			}
+		}
+		return character.getLocation().getDescription();
+		//Change the UI of map to match the player location
+	}
+	
+	/**Upgrade weapon 
+	 * 
+	 * Method: @param Character character
+	 * Method: @param Weapon weapon
+	 * Method: @param Item upgradeConsumable
+	 * 
+	 */
+	public String upgrade(Character character, Weapon weapon, Item upgradeConsumable)
+	{
+		ArrayList<Item> currentInventory = character.getInventory();
+		
+		if((upgradeConsumable.getName().equalsIgnoreCase("Big Box")) && (character.getInventory().contains(upgradeConsumable)
+				&& currentInventory.contains(weapon)))
+		{
+			//add 15 damage to the weapon
+			//add, drop and use 
+		}
+		
+		//if(character.getInventory().contains(weapon) && character.getInventory().contains(weapon))
+		{
+			
+		}
+		return "hi";
+	}
+	
 	
 	/**To get items within a room for game view class
 	 * 
