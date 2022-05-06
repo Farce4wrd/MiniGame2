@@ -78,7 +78,7 @@ public class Adventure extends Application {
 	private void initCommands() {
 		commands.put("exit", new Command("exit", "Closes the program", Platform::exit ));
 		commands.put("help", new Command("help", "Display all user commands", this::runHelp));
-		//commands.put("pick", new Command("pick", "Picks up an item", gameController));
+		commands.put("show", new Command("pick", "Picks up an item", gameController));
 	}
 
 	private void runHelp() {
