@@ -150,14 +150,14 @@ public class GameRoom {
 	 *
 	 * ArrayList<String>
 	 */
-//	public ArrayList<String> getExits(){
-//		ArrayList<String> exitDirections = new ArrayList<String>();
-//		for(Exit ex: exits) {
-//			String direction = ex.getDirection();
-//			exitDirections.add(direction);
-//		}
-//		return exitDirections;
-//	}
+	public ArrayList<String> getExits(){
+		ArrayList<String> exitDirections = new ArrayList<String>();
+		for(Exit ex: exits) {
+			String direction = ex.getDirection();
+			exitDirections.add(direction);
+		}
+		return exitDirections;
+	}
 	
 	/**To retrieve all exit objects
 	 * 
@@ -165,10 +165,10 @@ public class GameRoom {
 	 *
 	 * ArrayList<Exit>
 	 */
-//	public ArrayList<Exit> getAllExitObject(){
-//		return this.exits;
-//	}
-//	
+	public ArrayList<Exit> getAllExitObject(){
+		return (ArrayList<Exit>) this.exits;
+	}
+	
 	@Override
 	public String toString() {
 		String visit="";

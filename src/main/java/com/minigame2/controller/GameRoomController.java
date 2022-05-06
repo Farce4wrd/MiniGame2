@@ -3,6 +3,8 @@ package com.minigame2.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +14,22 @@ import com.minigame2.exception.GameDataException;
 import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
+import com.minigame2.model.Monster;
 import com.minigame2.model.Player;
+import com.minigame2.model.Weapon;
+import com.minigame2.model.Character;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
+import com.minigame2.service.MonsterService;
 
 @Controller
 public class GameRoomController {
 	
-	//private GameRoomService gameRoomService;
-	//private ItemService itemService;
+	@Autowired
+	private GameRoomService gameRoomService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
 	private Player player;
 	
 	
@@ -32,11 +41,12 @@ public class GameRoomController {
 	 * @param player
 	 * @throws GameDataException
 	 */
-	public GameRoomController( ItemService itemService, Player player) throws GameDataException {
-		
-		//this.itemService = itemService;
+	public GameRoomController(GameRoomService gameRoomService)// throws GameDataException 
+	{
+		this.gameRoomService = gameRoomService;
+		this.itemService = itemService;
 		this.player = player;
-		ControllerStart();
+		//ControllerStart();
 	}
 	
 	/**Creates room and its items
@@ -45,59 +55,62 @@ public class GameRoomController {
 	 *
 	 * void
 	 */
-	public void ControllerStart() throws GameDataException {
-		try {
-			File itemFile = new File("item.txt");
-			Scanner itemReader = new Scanner(itemFile);
-			while(itemReader.hasNextLine()) {
-				int id = Integer.parseInt(itemReader.nextLine());
-				String name = itemReader.nextLine();
-				String description = itemReader.nextLine();
-				//itemService.createItems(id, name, description);
-			}
-		}catch(Exception ex) {
-			throw new GameDataException("Error occured while reading the text file");
-		}
-		
-		
-		
-		try {
-			File gameFiles = new File("minigame.txt");
-			Scanner fileReader = new Scanner(gameFiles);
-			ArrayList<String> navigation = new ArrayList<String>();
-
-			while(fileReader.hasNextLine()) {
-				ArrayList<Exit> exitList = new ArrayList<Exit>();
-				//String tempLine = fileReader.nextLine();
-				String temp = fileReader.next();
-				int id = Integer.parseInt(temp);
-				fileReader.nextLine(); //to make it skip line
-				//int id = Integer.parseInt(fileReader.next());
-				String name = fileReader.nextLine();
-				//This is to get the room ids separate from the room directions
-				Scanner directionsWithId = new Scanner(fileReader.nextLine());
-				while(directionsWithId.hasNext()) {
-					String direction = directionsWithId.next();
-					int exitId = directionsWithId.nextInt();
-					Exit exit = new Exit(direction, exitId);
-					exitList.add(exit);
-				}
-				String description = fileReader.nextLine();
-				ArrayList<Item> it = new ArrayList<Item>();
-				//gameRoomService.createRoom(id, name, description, false, it, exitList);
-				
-			}
-			//randomly generate the items in rooms
-			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
-
+//	public void ControllerStart() //throws GameDataException 
+//	{
+//		try {
+//			File itemFile = new File("item.txt");
+//			Scanner itemReader = new Scanner(itemFile);
+//			while(itemReader.hasNextLine()) {
+//				int id = Integer.parseInt(itemReader.nextLine());
+//				String name = itemReader.nextLine();
+//				String description = itemReader.nextLine();
+//				//itemService.createItems(id, name, description);
+//			}
+//		}catch(Exception ex) {
+//			throw new GameDataException("Error occured while reading the text file");
+//		}
+//		
+//		
+//		
+//		try {
+//			File gameFiles = new File("minigame.txt");
+//			Scanner fileReader = new Scanner(gameFiles);
+//			ArrayList<String> navigation = new ArrayList<String>();
+//
+//			while(fileReader.hasNextLine()) {
+//				ArrayList<Exit> exitList = new ArrayList<Exit>();
+//				//String tempLine = fileReader.nextLine();
+//				String temp = fileReader.next();
+//				int id = Integer.parseInt(temp);
+//				fileReader.nextLine(); //to make it skip line
+//				//int id = Integer.parseInt(fileReader.next());
+//				String name = fileReader.nextLine();
+//				//This is to get the room ids separate from the room directions
+//				Scanner directionsWithId = new Scanner(fileReader.nextLine());
+//				while(directionsWithId.hasNext()) {
+//					String direction = directionsWithId.next();
+//					int exitId = directionsWithId.nextInt();
+//					Exit exit = new Exit(direction, exitId);
+//					exitList.add(exit);
+//				}
+//				String description = fileReader.nextLine();
+//				ArrayList<Item> it = new ArrayList<Item>();
+//				//gameRoomService.createRoom(id, name, description, false, it, exitList);
+//				
+//			}
+//			//randomly generate the items in rooms
+//			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
+//
+//	
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("Cant find game files.");
+//		}
+//		
+//	}
 	
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Cant find game files.");
-		}
-		
-	}
+	//START OF OLD CODE
 	
 	/**Provides the exit directions in a string arraylist for view component to hold user options
 	 * 
@@ -156,6 +169,112 @@ public class GameRoomController {
 		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
+	
+	//END OF OLD CODE
+	
+	/**Starts player combat loop
+	 * 
+	 * Method: @param Weapon weapon
+	 * Method: @param Monster monster
+	 * Method: @param Character character
+	 * 
+	 */
+	public String combat(Weapon weapon, Monster monster, Character character)
+	{
+		int monsterHp = monster.getHp();
+		Random rand = new Random();
+		int monsterDamage = rand.nextInt(monster.getDamage());
+		String monsterType = monster.getVariety();
+		
+		int playerHp = character.getHp();
+		int weaponDamage = Integer.parseInt(weapon.getDamage());
+		String weaponType = weapon.getVariety();
+		
+		while(monsterHp > 0)
+		{
+			if(weaponType.equalsIgnoreCase(monsterType))
+			{
+				character.setHp(playerHp - monsterDamage);
+				monster.setHp(monsterHp - weaponDamage);
+				return "Your hp: " + playerHp + "\nMonster hp: " + monsterHp;
+			}
+			else
+			{
+				character.setHp(playerHp - monsterDamage);
+				return "Your hp: " + playerHp + "\nMonster hp: " + monsterHp + "\nWrong weapon type! You did not do any damage";
+			}
+		}
+		if(monsterHp <= 0)
+		{
+			
+			return monster.getName() + " has been defeated!";
+		}
+		else
+		{
+			return "\n";
+		}
+	}
+	
+	/**Player movement method
+	 * 
+	 * Method: @param GameRoom room
+	 * Method: @param Character character
+	 * Note: I un commented the exits arraylist getters and setters to make this work
+	 */
+	
+	public String move(Character character, String direction)
+	{
+		GameRoom currentLocation = character.getLocation();
+		List<Exit> exits = currentLocation.getAllExitObject();
+		for(Exit e : exits)
+		{
+			if(direction.equalsIgnoreCase(e.getDirection()))
+			{
+				int i = e.getRoomId();
+				character.setLocation(this.gameRoomService.getRoom(i));
+			}
+		}
+		return character.getLocation().getDescription();
+		//Change the UI of map to match the player location
+	}
+	
+	public String tester()
+	{
+		List<String> exits = this.gameRoomService.getRoom(2).getExits();
+		String result = ""+exits.size();
+		
+//		for(String e: exits)
+//		{
+//			result+=e;
+//		}
+		return result;
+	}
+	
+	/**Upgrade weapon 
+	 * 
+	 * Method: @param Character character
+	 * Method: @param Weapon weapon
+	 * Method: @param Item upgradeConsumable
+	 * 
+	 */
+	public String upgrade(Character character, Weapon weapon, Item upgradeConsumable)
+	{
+		ArrayList<Item> currentInventory = character.getInventory();
+		
+		if((upgradeConsumable.getName().equalsIgnoreCase("Big Box")) && (character.getInventory().contains(upgradeConsumable)
+				&& currentInventory.contains(weapon)))
+		{
+			//add 15 damage to the weapon
+			//add, drop and use 
+		}
+		
+		//if(character.getInventory().contains(weapon) && character.getInventory().contains(weapon))
+		{
+			
+		}
+		return "hi";
+	}
+	
 	
 	/**To get items within a room for game view class
 	 * 
