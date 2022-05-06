@@ -57,5 +57,9 @@ public class Exit {
 	public void setRoomId(int roomId) {
 		this.roomid = roomId;
 	}
+	
+	public Exit() {
+		
+	}
 
 }
