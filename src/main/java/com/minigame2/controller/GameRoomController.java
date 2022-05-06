@@ -25,8 +25,11 @@ import com.minigame2.service.MonsterService;
 @Controller
 public class GameRoomController {
 	
+	@Autowired
 	private GameRoomService gameRoomService;
+	@Autowired
 	private ItemService itemService;
+	@Autowired
 	private Player player;
 	
 	
@@ -38,11 +41,12 @@ public class GameRoomController {
 	 * @param player
 	 * @throws GameDataException
 	 */
-	public GameRoomController( ItemService itemService, Player player, GameRoomService grs, MonsterService ms) throws GameDataException {
-		
-		//this.itemService = itemService;
+	public GameRoomController(GameRoomService gameRoomService)// throws GameDataException 
+	{
+		this.gameRoomService = gameRoomService;
+		this.itemService = itemService;
 		this.player = player;
-		ControllerStart();
+		//ControllerStart();
 	}
 	
 	/**Creates room and its items
@@ -51,59 +55,62 @@ public class GameRoomController {
 	 *
 	 * void
 	 */
-	public void ControllerStart() throws GameDataException {
-		try {
-			File itemFile = new File("item.txt");
-			Scanner itemReader = new Scanner(itemFile);
-			while(itemReader.hasNextLine()) {
-				int id = Integer.parseInt(itemReader.nextLine());
-				String name = itemReader.nextLine();
-				String description = itemReader.nextLine();
-				//itemService.createItems(id, name, description);
-			}
-		}catch(Exception ex) {
-			throw new GameDataException("Error occured while reading the text file");
-		}
-		
-		
-		
-		try {
-			File gameFiles = new File("minigame.txt");
-			Scanner fileReader = new Scanner(gameFiles);
-			ArrayList<String> navigation = new ArrayList<String>();
-
-			while(fileReader.hasNextLine()) {
-				ArrayList<Exit> exitList = new ArrayList<Exit>();
-				//String tempLine = fileReader.nextLine();
-				String temp = fileReader.next();
-				int id = Integer.parseInt(temp);
-				fileReader.nextLine(); //to make it skip line
-				//int id = Integer.parseInt(fileReader.next());
-				String name = fileReader.nextLine();
-				//This is to get the room ids separate from the room directions
-				Scanner directionsWithId = new Scanner(fileReader.nextLine());
-				while(directionsWithId.hasNext()) {
-					String direction = directionsWithId.next();
-					int exitId = directionsWithId.nextInt();
-					Exit exit = new Exit(direction, exitId);
-					exitList.add(exit);
-				}
-				String description = fileReader.nextLine();
-				ArrayList<Item> it = new ArrayList<Item>();
-				//gameRoomService.createRoom(id, name, description, false, it, exitList);
-				
-			}
-			//randomly generate the items in rooms
-			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
-
+//	public void ControllerStart() //throws GameDataException 
+//	{
+//		try {
+//			File itemFile = new File("item.txt");
+//			Scanner itemReader = new Scanner(itemFile);
+//			while(itemReader.hasNextLine()) {
+//				int id = Integer.parseInt(itemReader.nextLine());
+//				String name = itemReader.nextLine();
+//				String description = itemReader.nextLine();
+//				//itemService.createItems(id, name, description);
+//			}
+//		}catch(Exception ex) {
+//			throw new GameDataException("Error occured while reading the text file");
+//		}
+//		
+//		
+//		
+//		try {
+//			File gameFiles = new File("minigame.txt");
+//			Scanner fileReader = new Scanner(gameFiles);
+//			ArrayList<String> navigation = new ArrayList<String>();
+//
+//			while(fileReader.hasNextLine()) {
+//				ArrayList<Exit> exitList = new ArrayList<Exit>();
+//				//String tempLine = fileReader.nextLine();
+//				String temp = fileReader.next();
+//				int id = Integer.parseInt(temp);
+//				fileReader.nextLine(); //to make it skip line
+//				//int id = Integer.parseInt(fileReader.next());
+//				String name = fileReader.nextLine();
+//				//This is to get the room ids separate from the room directions
+//				Scanner directionsWithId = new Scanner(fileReader.nextLine());
+//				while(directionsWithId.hasNext()) {
+//					String direction = directionsWithId.next();
+//					int exitId = directionsWithId.nextInt();
+//					Exit exit = new Exit(direction, exitId);
+//					exitList.add(exit);
+//				}
+//				String description = fileReader.nextLine();
+//				ArrayList<Item> it = new ArrayList<Item>();
+//				//gameRoomService.createRoom(id, name, description, false, it, exitList);
+//				
+//			}
+//			//randomly generate the items in rooms
+//			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
+//
+//	
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("Cant find game files.");
+//		}
+//		
+//	}
 	
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Cant find game files.");
-		}
-		
-	}
+	//START OF OLD CODE
 	
 	/**Provides the exit directions in a string arraylist for view component to hold user options
 	 * 
@@ -162,6 +169,8 @@ public class GameRoomController {
 		player.removeFromBackpack(item);
 		System.out.println(item.getName() + " has been removed");
 	}
+	
+	//END OF OLD CODE
 	
 	/**Starts player combat loop
 	 * 
@@ -227,6 +236,18 @@ public class GameRoomController {
 		}
 		return character.getLocation().getDescription();
 		//Change the UI of map to match the player location
+	}
+	
+	public String tester()
+	{
+		List<String> exits = this.gameRoomService.getRoom(2).getExits();
+		String result = ""+exits.size();
+		
+//		for(String e: exits)
+//		{
+//			result+=e;
+//		}
+		return result;
 	}
 	
 	/**Upgrade weapon 
