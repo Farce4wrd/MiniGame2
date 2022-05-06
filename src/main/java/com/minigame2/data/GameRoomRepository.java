@@ -11,7 +11,6 @@ import com.minigame2.model.GameRoom;
 public interface GameRoomRepository extends JpaRepository<GameRoom, Integer>{
 	public List<GameRoom> findByid(Integer id);
 	GameRoom findByitems(Integer item);
-	
-
+	GameRoom findByid(int id);
 	
 }
