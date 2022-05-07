@@ -165,8 +165,8 @@ public class GameRoom {
 	 *
 	 * ArrayList<Exit>
 	 */
-	public ArrayList<Exit> getAllExitObject(){
-		return (ArrayList<Exit>) this.exits;
+	public List<Exit> getAllExitObject(){
+		return this.exits;
 	}
 	
 	@Override

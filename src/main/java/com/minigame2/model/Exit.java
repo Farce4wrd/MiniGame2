@@ -61,4 +61,9 @@ public class Exit {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Exit [id=" + id + ", roomid=" + roomid + ", direction=" + direction + ", room=" + room + "]";
+	}
+
 }

@@ -171,6 +171,13 @@ public class GameRoomController {
 	}
 	
 	//END OF OLD CODE
+	//////Pre-cursor for the UI
+	public Character createCharacterAtBeginning(String name) {
+		GameRoom location = this.gameRoomService.getRoom(1);
+		Character chara = new Character(name,location,50,3,1,1);
+		return chara;
+		
+	}
 	
 	/**Starts player combat loop
 	 * 
@@ -228,7 +235,7 @@ public class GameRoomController {
 		List<Exit> exits = currentLocation.getAllExitObject();
 		for(Exit e : exits)
 		{
-			if(direction.equalsIgnoreCase(e.getDirection()))
+			if((e.getDirection()).equalsIgnoreCase(direction))
 			{
 				int i = e.getRoomId();
 				character.setLocation(this.gameRoomService.getRoom(i));

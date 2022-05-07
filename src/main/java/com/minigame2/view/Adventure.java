@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.minigame2.MiniGame2Application;
 import com.minigame2.controller.GameRoomController;
 import com.minigame2.data.GameRoomRepository;
+import com.minigame2.model.Character;
 import com.minigame2.model.Player;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
@@ -108,14 +109,25 @@ public class Adventure extends Application {
 	}
 	
 	//ItemService itemService = new ItemService(itemRepository);
-	
+	public static String a = "li";
 	//GameRoomController grc = applicationContext.getBean(GameRoomController.class);
 	
 	private void initCommands() {
 		commands.put("exit", new Command("exit", "Closes the program", Platform::exit ));
 		commands.put("help", new Command("help", "Display all user commands", this::runHelp));
 		commands.put("show", new Command("show example text", "hope this works", this::showCommand));
+		//commands.put("shor", new Command("show example text", "hope this works 2.0", ));
+		commands.put("see", new Command("see", "see exit list", this.grc::tester));
+		commands.put("EAST", new Command("EAST", "Move east", () ->moveCommand("EAST")));
+		
 		//commands.put("pick", new Command("pick", "Picks up an item", gameController));
+	}
+	
+	
+	private void moveCommand(String direction) {
+		Character chara = grc.createCharacterAtBeginning("Josh");
+		String result = grc.move(chara, direction);
+		println(result);
 	}
 
 	private void runHelp() {
