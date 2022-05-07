@@ -18,6 +18,7 @@ import com.minigame2.model.Monster;
 import com.minigame2.model.Player;
 import com.minigame2.model.Weapon;
 import com.minigame2.model.Character;
+import com.minigame2.service.CharacterService;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
 import com.minigame2.service.MonsterService;
@@ -27,6 +28,8 @@ public class GameRoomController {
 	
 	@Autowired
 	private GameRoomService gameRoomService;
+	@Autowired
+	private CharacterService characterService;
 	@Autowired
 	private ItemService itemService;
 	@Autowired
@@ -41,8 +44,9 @@ public class GameRoomController {
 	 * @param player
 	 * @throws GameDataException
 	 */
-	public GameRoomController(GameRoomService gameRoomService)// throws GameDataException 
+	public GameRoomController(GameRoomService gameRoomService, CharacterService characterService)// throws GameDataException 
 	{
+		this.characterService = characterService;
 		this.gameRoomService = gameRoomService;
 		this.itemService = itemService;
 		this.player = player;
@@ -267,19 +271,69 @@ public class GameRoomController {
 	public String upgrade(Character character, Weapon weapon, Item upgradeConsumable)
 	{
 		ArrayList<Item> currentInventory = character.getInventory();
+		int weaponDamage = Integer.parseInt(weapon.getDamage()) ;
 		
 		if((upgradeConsumable.getName().equalsIgnoreCase("Big Box")) && (character.getInventory().contains(upgradeConsumable)
 				&& currentInventory.contains(weapon)))
 		{
-			//add 15 damage to the weapon
-			//add, drop and use 
+			weaponDamage+=15;
+			weapon.setDamage(""+weaponDamage);
+			return weapon.getName() + " has been upgraded. \n The current damage is now " + weapon.getDamage() + "\n";
 		}
-		
-		//if(character.getInventory().contains(weapon) && character.getInventory().contains(weapon))
+		else
 		{
-			
+			return "Invalid option. \n You need to have the " + weapon.getName() + " and the Big Box in your inventory to upgrade the " + weapon.getName() + "\n";
 		}
-		return "hi";
+	}
+	
+	/**Pickup an item from a room
+	 * 
+	 * Method: @param Character character
+	 * Method: Item item
+	 */
+	
+	public String pickup(Character character, Item item)
+	{
+		ArrayList<Item> characterInventory = character.getInventory();
+		GameRoom location = character.getLocation();
+		
+		if(location.getItems().contains(item))
+		{
+			characterInventory.add(item);
+			location.getItems().remove(item);
+			characterService.characterSave(character);
+			return item.getName() + " has been added to your inventory!\n";
+		}
+		else
+		{
+			return "Invalid option. " + item.getName() + " is not in the " + location.getName();
+		}
+	}
+	
+	/**Drop item in a room
+	 * 
+	 * Method: @param Character character
+	 * Method: @param Item item
+	 * 
+	 */
+	
+	public String drop(Character character, Item item)
+	{
+		ArrayList<Item> characterInventory = character.getInventory();
+		GameRoom location = character.getLocation();
+		
+		if(characterInventory.contains(item))
+		{
+			location.getItems().add(item);
+			characterInventory.remove(item);
+			characterService.characterSave(character);
+			return item.getName() + " has been added to the " + location.getName() + "!\n";
+		}
+		else
+		{
+			return "Invalid option. " + item.getName() + " is not in your inventory. \n";
+		}
+	
 	}
 	
 	
