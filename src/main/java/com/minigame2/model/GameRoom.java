@@ -1,33 +1,27 @@
 package com.minigame2.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-
 @Entity
 @Table(name="ROOM")
-public class GameRoom {
+public class GameRoom implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
 	private String name;
 	private String description;
 	private String hasvisited;
-	@OneToMany(mappedBy="room",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="room",fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	private List<Item> items;
-	@OneToMany(mappedBy="room", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	private List<Monster> monsters;

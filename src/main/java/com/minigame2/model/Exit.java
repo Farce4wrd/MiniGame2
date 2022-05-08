@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * 
  */
@@ -25,7 +27,7 @@ import org.springframework.stereotype.Component;
  */
 @Entity
 @Table(name="EXIT", schema="EXIT")
-public class Exit {
+public class Exit implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;

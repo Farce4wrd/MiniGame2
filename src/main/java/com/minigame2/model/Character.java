@@ -1,5 +1,6 @@
 package com.minigame2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -15,7 +16,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="CHARACTER")
-public class Character {
+public class Character implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
@@ -29,8 +30,11 @@ public class Character {
 	private ArrayList<Item> inventory;
 	@Transient
 	private ReentrantLock lock;
-	
-	
+
+
+	public Character() {
+	}
+
 	public Character(String name, GameRoom location, int hp, int life, int points, int level) {
 		lock= new ReentrantLock();
 		this.name = name;
@@ -40,7 +44,7 @@ public class Character {
 		this.points = points;
 		this.level = 0;
 	}
-	
+
 	public ArrayList<Item> getInventory()	{
 		lock.lock();
 		try {
