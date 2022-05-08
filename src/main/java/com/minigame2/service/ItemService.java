@@ -5,15 +5,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.minigame2.data.ItemRepository;
+import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 import com.minigame2.model.Player;
 
 @Service
+@Transactional
 public class ItemService {
 	private ItemRepository itemRepository;
-	
+
 	@Autowired
 	public ItemService(ItemRepository itemRepository) {
 		this.itemRepository = itemRepository;
@@ -43,6 +46,10 @@ public class ItemService {
 //		items.add(item);
 //		
 //	}
+	public List<Item> getItemsById(GameRoom room){
+		return this.itemRepository.findByroom(room);
+		
+	}
 	
 	
 	public List<Item> getWeapons(){

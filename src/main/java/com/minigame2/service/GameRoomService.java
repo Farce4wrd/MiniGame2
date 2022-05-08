@@ -3,16 +3,18 @@ package com.minigame2.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minigame2.data.GameRoomRepository;
 import com.minigame2.exception.GameDataException;
-import com.minigame2.model.Exit;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 
 @Service
+@Transactional
 public class GameRoomService {
 
 	private GameRoomRepository gameRoomRepository;
@@ -59,7 +61,7 @@ public class GameRoomService {
 	
 	public GameRoom getRoom(int id)
 	{
-		return this.gameRoomRepository.findByid(id);
+		return this.gameRoomRepository.findById(id);
 	}
 	
 	

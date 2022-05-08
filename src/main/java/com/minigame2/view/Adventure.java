@@ -33,18 +33,6 @@ import javafx.stage.Stage;
 
 @Component
 public class Adventure extends Application {
-//	
-//	private GameRoomController grc;
-//	@Autowired
-//	public Adventure(GameRoomController grc)
-//	{
-//		this.grc = grc;
-//	}
-//	
-//	public Adventure()
-//	{
-//		
-//	}
 	
 	@Autowired
 	private ConfigurableApplicationContext applicationContext;
@@ -81,10 +69,11 @@ public class Adventure extends Application {
 		
 		return root;
 	}
-	
+	public static Character chara;
 	
 	private void initGame() {
 		println("Welcome to Scary Place");
+		chara = grc.createCharacterAtBeginning("Josh");
 		initCommands();
 	}
 	
@@ -98,34 +87,51 @@ public class Adventure extends Application {
 		String holdtheline = grc.tester();
 		println(holdtheline);
 	}
-	
-	//Method that responds to your inputs
-	private void onInput(String line) {
-		if(!commands.containsKey(line)) {
-			println("Command "+ line+ " not recognized");
+
+	//Method that verifies the input
+	private void onInput(String inputText) {
+		String rawInput = inputText.replaceAll("\\s", "");
+		String[] query = rawInput.split(":", 2);
+		String command = query[0];
+		if(command.equals("pick-up")) {
+			String item = query[1];
+			input.setText(item);
+		}
+
+		if(!commands.containsKey(command)) {
+			println("Command "+ command + " not recognized");
 			return;
 		}
-		commands.get(line).execute();
+
+		commands.get(command).execute();
 	}
 	
-	//ItemService itemService = new ItemService(itemRepository);
 	public static String a = "li";
-	//GameRoomController grc = applicationContext.getBean(GameRoomController.class);
-	
+
+
 	private void initCommands() {
 		commands.put("exit", new Command("exit", "Closes the program", Platform::exit ));
 		commands.put("help", new Command("help", "Display all user commands", this::runHelp));
 		commands.put("show", new Command("show example text", "hope this works", this::showCommand));
-		//commands.put("shor", new Command("show example text", "hope this works 2.0", ));
 		commands.put("see", new Command("see", "see exit list", this.grc::tester));
 		commands.put("EAST", new Command("EAST", "Move east", () ->moveCommand("EAST")));
+		commands.put("NORTH", new Command("EAST", "Move east", () ->moveCommand("NORTH")));
+		commands.put("WEST", new Command("EAST", "Move east", () ->moveCommand("WEST")));
+		commands.put("SOUTH", new Command("EAST", "Move east", () ->moveCommand("SOUTH")));
+		commands.put("pick-up", new Command("pick-up", "picks up any item", () ->pick(input.getText())));
+		
+		
 		
 		//commands.put("pick", new Command("pick", "Picks up an item", gameController));
 	}
 	
+	private void pick(String item) {
+		Character chara = grc.createCharacterAtBeginning("Josh");
+		String result = grc.pickup(chara, item);
+		println(result);
+	}
 	
 	private void moveCommand(String direction) {
-		Character chara = grc.createCharacterAtBeginning("Josh");
 		String result = grc.move(chara, direction);
 		println(result);
 	}

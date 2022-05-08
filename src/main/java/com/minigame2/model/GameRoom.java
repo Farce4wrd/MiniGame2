@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+
 @Entity
 @Table(name="ROOM")
 public class GameRoom {
@@ -23,9 +25,9 @@ public class GameRoom {
 	private String name;
 	private String description;
 	private String hasvisited;
-	@OneToMany(mappedBy="room",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="room",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<Item> items;
-	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="room", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	private List<Monster> monsters;
@@ -56,13 +58,13 @@ public class GameRoom {
 	 * @param items
 	 * @param exits
 	 */
-	public GameRoom(String name, String description, String hasVisited) {
+	public GameRoom(String name, String description, String hasVisited, List<Item> items) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.hasvisited = hasVisited;
-//		this.items = items;
-//		this.exits = exits;
+		this.items = items;
+	//	this.exits = exits;
 //		this.monsters=monsters;
 	}
 	/**
@@ -75,7 +77,7 @@ public class GameRoom {
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 	/**
 	 * @return the name

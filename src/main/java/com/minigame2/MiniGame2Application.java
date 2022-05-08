@@ -49,12 +49,13 @@ public class MiniGame2Application{
 	@Bean
 	CommandLineRunner commandLineRunner(ItemRepository itemRepo,GameRoomRepository roomRepo, MonsterRepository monsterRepo) {
 		return args ->{
-			GameRoomService gr = new GameRoomService(roomRepo);
-			GameRoom games = gr.getRoom(15);
-			System.out.println(games);
+			
+//			GameRoomService gr = new GameRoomService(roomRepo);
+//			GameRoom games = gr.getRoom(16);
+//			System.out.println(games);
 			//List<Item> items = gr.getWeapons();
-//			ItemService gr = new ItemService(itemRepo);
-//			List<Item> items = gr.getWeapons();
+//			ItemService gri = new ItemService(itemRepo);
+//			List<Item> items = gri.getItemsById(games);
 //			items.forEach(monster ->{
 //				System.out.println(monster);
 //			});
@@ -69,7 +70,7 @@ public class MiniGame2Application{
 //			ArrayList<GameRoom> rooms = new ArrayList<GameRoom>();
 //			for (GameRoom room: gameRoomRepository.findAll()){
 //				System.out.println(room);
-//			}
+//			}pick-up:
 		};
 	}
 	
