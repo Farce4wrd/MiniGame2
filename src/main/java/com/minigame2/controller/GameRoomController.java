@@ -308,12 +308,8 @@ public class GameRoomController {
 				isFound = true;
 				characterInventory.add(itemToFind);  //add item to character's inventory
 				character.setInventory(characterInventory);
-				
-<<<<<<< HEAD
-				//location01.getItems().remove(itemToFind); //removes room item from specific room
-=======
+
 				location01.getItems().remove(itemToFind); //removes room item from specific room
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 				characterService.characterSave(character); //updates the character in the db with new item
 				
 				this.gameRoomService.addRoom(location);  //saves state of the room to db

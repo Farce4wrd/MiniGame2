@@ -23,19 +23,10 @@ public class Character implements Serializable {
 	private List<Item> inventory;
 	@Transient
 	private ReentrantLock lock;
-<<<<<<< HEAD
-	
-	public Character() {
-		
-	}
-	
-=======
-
 
 	public Character() {
 	}
 
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 	public Character(String name, GameRoom location, int hp, int life, int points, int level) {
 		lock= new ReentrantLock();
 		this.name = name;
@@ -45,13 +36,8 @@ public class Character implements Serializable {
 		this.points = points;
 		this.level = 0;
 	}
-<<<<<<< HEAD
-	
-	public List<Item> getInventory()	{
-=======
 
-	public ArrayList<Item> getInventory()	{
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
+	public List<Item> getInventory()	{
 		lock.lock();
 		try {
 			return this.inventory;

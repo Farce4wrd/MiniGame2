@@ -1,25 +1,10 @@
 package com.minigame2;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-
 import com.minigame2.data.CharacterRepository;
-=======
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 import com.minigame2.data.GameRoomRepository;
 import com.minigame2.data.ItemRepository;
 import com.minigame2.data.MonsterRepository;
 import com.minigame2.exception.GameDataException;
-<<<<<<< HEAD
 import com.minigame2.model.Character;
 import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
@@ -27,10 +12,6 @@ import com.minigame2.service.CharacterService;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
 import com.minigame2.view.Adventure;
-
-=======
-import com.minigame2.view.Adventure;
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +20,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 
 

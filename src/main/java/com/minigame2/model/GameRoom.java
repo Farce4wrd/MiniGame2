@@ -2,31 +2,14 @@ package com.minigame2.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-=======
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 @Entity
 @Table(name="ROOM")
 public class GameRoom implements Serializable {
@@ -36,19 +19,11 @@ public class GameRoom implements Serializable {
 	private String name;
 	private String description;
 	private String hasvisited;
-<<<<<<< HEAD
-	@OneToMany(mappedBy="room",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Item> items;
-	@OneToMany(mappedBy="room", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
-=======
 	@OneToMany(mappedBy="room",fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
 	private List<Item> items;
 	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
->>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
