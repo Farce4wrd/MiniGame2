@@ -1,10 +1,9 @@
 package com.minigame2.model;
 
-import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 public class Player {

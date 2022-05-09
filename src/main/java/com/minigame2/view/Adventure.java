@@ -1,24 +1,8 @@
 package com.minigame2.view;
 
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.stereotype.Component;
-
 import com.minigame2.MiniGame2Application;
 import com.minigame2.controller.GameRoomController;
-import com.minigame2.data.GameRoomRepository;
 import com.minigame2.model.Character;
-import com.minigame2.model.Player;
-import com.minigame2.service.GameRoomService;
-import com.minigame2.service.ItemService;
-import com.minigame2.service.MonsterService;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -29,6 +13,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class Adventure extends Application {

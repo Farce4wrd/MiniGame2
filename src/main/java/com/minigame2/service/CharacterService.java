@@ -1,10 +1,9 @@
 package com.minigame2.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.minigame2.data.CharacterRepository;
 import com.minigame2.model.Character;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 

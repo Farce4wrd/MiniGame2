@@ -1,12 +1,12 @@
 package com.minigame2;
 
+import org.springframework.stereotype.Component;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class CreateInsert {
