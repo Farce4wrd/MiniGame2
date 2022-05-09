@@ -11,5 +11,7 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByVariety(String Weapon);
 	List<Item> findByroom(GameRoom room);
+	
+	void removeByroom(GameRoom room);
 
 }

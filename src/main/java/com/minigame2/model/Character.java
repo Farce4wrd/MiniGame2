@@ -1,26 +1,14 @@
 package com.minigame2.model;
 
-<<<<<<< HEAD
-=======
+
 import javax.persistence.*;
->>>>>>> 7e9fa8c6846c6959ed09093126049a0b028d88af
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-<<<<<<< HEAD
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
-=======
->>>>>>> 7e9fa8c6846c6959ed09093126049a0b028d88af
 @Entity
 @Table(name="CHARACTER")
 public class Character implements Serializable {
@@ -32,7 +20,7 @@ public class Character implements Serializable {
 	private int life;
 	private int points;
 	private int level;
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="character")
+	@OneToOne(mappedBy="character",fetch= FetchType.EAGER)
 	private GameRoom location;
 	@Transient
 	private List<Item> inventory;
@@ -47,9 +35,10 @@ public class Character implements Serializable {
 		this.name = name;
 		this.location = location;
 		this.inventory = new ArrayList<Item>();
-		this.hp = 50; //for now...
+		this.hp = hp; //for now...
+		this.life= life;
 		this.points = points;
-		this.level = 0;
+		this.level = level;
 	}
 
 	public List<Item> getInventory()	{

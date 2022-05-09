@@ -111,7 +111,6 @@ public class Adventure extends Application {
 	public static String a = "li";
 	
 	private void pick(String item) {
-		Character chara = grc.createCharacterAtBeginning("Josh");
 		String result = grc.pickup(chara, item);
 		println(result);
 	}

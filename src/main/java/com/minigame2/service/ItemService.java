@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class ItemService {
 	private ItemRepository itemRepository;
 
@@ -50,6 +49,9 @@ public class ItemService {
 		
 	}
 	
+	public void removeItemFromRoom(GameRoom room) {
+		 this.itemRepository.removeByroom(room);
+	}
 	
 	public List<Item> getWeapons(){
 		return this.itemRepository.findByVariety("Weapon");
@@ -77,15 +79,15 @@ public class ItemService {
 	 *
 	 * void
 	 */
-	public void removeItem(Item item) {
-		for(Item it: player.getBackpack()) {
-			if(it.getName().equals(item.getName())) {
-				player.removeFromBackpack(it);
-				
-			}
-		}
-	}
-	
+//	public void removeItem(Item item) {
+//		for(Item it: player.getBackpack()) {
+//			if(it.getName().equals(item.getName())) {
+//				player.removeFromBackpack(it);
+//				
+//			}
+//		}
+//	}
+//	
 	
 	
 	
