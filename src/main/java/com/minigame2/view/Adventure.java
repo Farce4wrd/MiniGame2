@@ -72,11 +72,17 @@ public class Adventure extends Application {
 		commandList.put("close", new Command("Close -", "Closes the program.", Platform::exit ));
 		commandList.put("help", new Command("Help -", "Display all user commands.", this::runHelp));
 		commandList.put("showexample", new Command("Show Example -", "hope this works.", this::showCommand));
-		commandList.put("seeexits", new Command("See Exits -", "Show list of exits.", this.grc::tester));
+		commandList.put("seeexits", new Command("See Exits -", "Show list of exits.", this.grc::showExits));
 		commandList.put("go", new Command("Go -", "Moves to EAST or WEST or NORTH or SOUTH (example: go > east).", () ->moveCommand(direction)));
 		commandList.put("pickup", new Command("Pick Up -", "Picks up any item (example: pickup > bandage).", () ->pick(pickupItem)));
+		commandList.put("status", new Command("Status", "Shows the room you're currently in, your HP and inventory", () -> showLocation(chara)));
+		commandList.put("look", new Command("Show", "Shows items in the room", () -> showItemsInRoom(chara)));
 		//Need a method to show room currently in, list of items in room, exits in the room.
 		//May also display status of character in the method above (hp, inventory, e.t.c)
+		/*Made the status and look commands, the exit command still prints to the console1
+		 * 
+		 */
+		
 	}
 	//Method that verifies the input
 	private void onInput(String inputText) {
@@ -102,9 +108,19 @@ public class Adventure extends Application {
 		output.setWrapText(true);
 	}
 	
+	private void showLocation(Character chara)
+	{
+		println(grc.currentLocation(chara));
+	}
+	
+	private void showItemsInRoom(Character chara)
+	{
+		println(grc.look(chara));
+	}
+	
 	private void showCommand()
 	{
-		String holdtheline = grc.tester();
+		String holdtheline = grc.showExits();
 		println(holdtheline);
 	}
 	

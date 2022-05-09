@@ -8,7 +8,7 @@ import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import java.lang.Exception;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -239,20 +239,54 @@ public class GameRoomController {
 		
 		
 		return character.getLocation().getDescription();
-		//Change the UI of map to match the player location
+		//Change the UI of map to match the player locatio
 	}
 	
-	public String tester()
+	/**Shows exits
+	 */
+	
+	public String showExits()
 	{
 		List<String> exits = this.gameRoomService.getRoom(2).getExits();
-		String result = ""+exits.size();
-		
-//		for(String e: exits)
-//		{
-//			result+=e;
-//		}
+		String result = "";
+		for(String e: exits)
+		{
+			result+=e;
+		}
 		return result;
 	}
+	/**Shows player's current location, hp and inventory
+	 * 
+	 * @param chara
+	 * @return
+	 */
+	
+	public String currentLocation(Character chara)
+	{
+		return chara.getName() + "\nHP: " + chara.getHp() + "\nInventory: " + chara.getInventory()
+		+ "\nYou are in the " + chara.getLocation().getName();
+	}
+	
+	/**Look at items in the room!
+	 * 
+	 * @param chara
+	 * @return
+	 */
+	
+	public String look(Character chara)
+	{
+		GameRoom gr = chara.getLocation();
+		List<String> items = gr.getItemsInRoom();
+		String result = "";
+		for(String i: items)
+		{
+			result+=i;
+			result+=" ";
+		}
+		return "In the room is: " + result;
+	}
+	
+	
 	
 	/**Upgrade weapon 
 	 * 

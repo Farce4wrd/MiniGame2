@@ -168,6 +168,17 @@ public class GameRoom implements Serializable {
 		return this.exits;
 	}
 	
+	public ArrayList<String> getItemsInRoom()
+	{
+		ArrayList<String> itemsInRoom = new ArrayList<String>();
+		for(Item it: items)
+		{
+			String item = it.getName();
+			itemsInRoom.add(item);
+		}
+		return itemsInRoom;
+	}
+	
 	@Override
 	public String toString() {
 		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasvisited=" + hasvisited
