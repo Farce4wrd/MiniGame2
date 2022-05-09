@@ -247,7 +247,6 @@ public class GameRoomController {
 			}
 		}
 		
-		
 		return character.getLocation().getDescription();
 		//Change the UI of map to match the player location
 	}
@@ -306,11 +305,6 @@ public class GameRoomController {
 		//GameRoom presentRoom = this.gameRoomService.getRoom(location.getId());
 		
 		List<Item> roomInventory = this.itemService.getItemsById(location);
-		System.out.println("The test");
-		roomInventory.forEach(itema ->{
-			
-			System.out.println(itema);
-		});
 		//Item roomInventory_01= this.itemService.getItemsById(location.getId());
 		Boolean isFound = false;
 		for(Item itemToFind : roomInventory) {
@@ -319,9 +313,9 @@ public class GameRoomController {
 				characterInventory.add(itemToFind);  //add item to character's inventory
 				character.setInventory(characterInventory);
 				
-				//location01.getItems().remove(itemToFind); //removes room item from specific room
+				location01.getItems().remove(itemToFind); //removes room item from specific room
 				characterService.characterSave(character); //updates the character in the db with new item
-				
+				System.out.println(location01);
 				this.gameRoomService.addRoom(location);  //saves state of the room to db
 				String res =itemToFind.getName() + " has been added to your inventory!\n";
 				return res;

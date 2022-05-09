@@ -16,7 +16,7 @@ public interface GameRoomRepository extends JpaRepository<GameRoom, Integer>{
 	
 	@Query("SELECT DISTINCT roo FROM GameRoom roo JOIN FETCH roo.items items")
 	List<GameRoom> retrieveAll();
-	@Query("SELECT DISTINCT roo FROM GameRoom roo JOIN FETCH roo.items JOIN FETCH roo.monsters JOIN FETCH roo.exits JOIN FETCH roo.character WHERE roo.id=?1")
+	@Query("SELECT DISTINCT roo FROM GameRoom roo JOIN FETCH roo.items WHERE roo.id=?1")
 	GameRoom findGameRoomById(int id);
 	GameRoom findById(int id);
 	

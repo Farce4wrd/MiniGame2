@@ -1,5 +1,6 @@
 package com.minigame2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="ROOM")
-public class GameRoom {
+public class GameRoom implements Serializable{
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
@@ -180,7 +179,7 @@ public class GameRoom {
 	@Override
 	public String toString() {
 		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasvisited=" + hasvisited
-				+ ", items=" + items + ", character=" + character + "]";
+				+ ", items=" + items + ", exits=" + getExits() + ", monsters=" + getMonsters()  + "]";
 	}
 
 	public List<Monster> getMonsters() {

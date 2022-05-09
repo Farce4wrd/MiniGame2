@@ -1,10 +1,10 @@
 package com.minigame2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="CHARACTER")
-public class Character {
+public class Character implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;

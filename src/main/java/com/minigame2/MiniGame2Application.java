@@ -53,40 +53,40 @@ public class MiniGame2Application{
 			
 			
 			
-			GameRoomService gr = new GameRoomService(roomRepo);
-			ItemService itemService = new ItemService(itemRepo);
-			CharacterService characterService = new CharacterService(characterRepo);
-			//GameRoom games = gr.getRoom(16);
-			GameRoom location = gr.getRoomWithItem(1);
-			Character chara = new Character("Josh",location,50,3,1,1);
-			List<Item> characterInventory = chara.getInventory();
-			String item ="bandage";
-			
-			List<Item> roomInventory = itemService.getItemsById(location);
-			for(Item itemToFind : roomInventory) {
-				if(itemToFind.getName().equalsIgnoreCase(item)) {
-					characterInventory.add(itemToFind);  //add item to character's inventory
-					chara.setInventory(characterInventory);
-					
-					location.getItems().remove(itemToFind); //removes room item from specific room
-					location.getItems().forEach(it->{
-						System.out.println(it);
-						System.out.println("stop");
-					});
-					characterService.characterSave(chara); //updates the character in the db with new item
-					
-					gr.addRoom(location);  //saves state of the room to db
-					String res =itemToFind.getName() + " has been added to your inventory!\n";
-					System.out.println(res + "has been added to inventory");
-				}
-			}
-			//GameRoom roo = gr.getRoomWithItem(16);
+//			GameRoomService gr = new GameRoomService(roomRepo);
+//			ItemService itemService = new ItemService(itemRepo);
+//			CharacterService characterService = new CharacterService(characterRepo);
+//			//GameRoom games = gr.getRoom(16);
+//			GameRoom location = gr.getRoomWithItem(1);
+//			Character chara = new Character("Josh",location,50,3,1,1);
+//			List<Item> characterInventory = chara.getInventory();
+//			String item ="bandage";
+//			
+//			List<Item> roomInventory = itemService.getItemsById(location);
+//			for(Item itemToFind : roomInventory) {
+//				if(itemToFind.getName().equalsIgnoreCase(item)) {
+//					characterInventory.add(itemToFind);  //add item to character's inventory
+//					chara.setInventory(characterInventory);
+//					
+//					location.getItems().remove(itemToFind); //removes room item from specific room
+//					location.getItems().forEach(it->{
+//						System.out.println(it);
+//						System.out.println();
+//					});
+//					characterService.characterSave(chara); //updates the character in the db with new item
+//					
+//					gr.addRoom(location);  //saves state of the room to db
+//					String res =itemToFind.getName() + " has been added to your inventory!\n";
+//					System.out.println(res + "has been added to inventory");
+//				}
+//			}
+//			//GameRoom roo = gr.getRoomWithItem(16);
 //			List<GameRoom> rooms =gr.getRoomWItems();
 //			rooms.forEach(roo->{
 //				System.out.println(roo.getName()+"\n"+roo.getItems());
 //			});
-			System.out.println(chara);
-			System.out.println(gr.getRoomWithItem(1));
+//			System.out.println(chara);
+//			System.out.println(gr.getRoomWithItem(1));
 			//characterService.characterSave(chara); 
 			
 //			System.out.println(games);
