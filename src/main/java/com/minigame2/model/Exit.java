@@ -1,15 +1,7 @@
 package com.minigame2.model;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 
@@ -25,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Entity
 @Table(name="EXIT", schema="EXIT")
-public class Exit {
+public class Exit implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;

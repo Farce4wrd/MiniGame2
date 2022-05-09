@@ -1,18 +1,18 @@
 package com.minigame2.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.minigame2.data.GameRoomRepository;
+import com.minigame2.exception.GameDataException;
+import com.minigame2.model.GameRoom;
+import com.minigame2.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.minigame2.data.GameRoomRepository;
-import com.minigame2.exception.GameDataException;
-import com.minigame2.model.Exit;
-import com.minigame2.model.GameRoom;
-import com.minigame2.model.Item;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@Transactional
 public class GameRoomService {
 
 	private GameRoomRepository gameRoomRepository;
@@ -59,10 +59,19 @@ public class GameRoomService {
 	
 	public GameRoom getRoom(int id)
 	{
-		return this.gameRoomRepository.findByid(id);
+		return this.gameRoomRepository.findById(id);
 	}
 	
+	public List<GameRoom> getRoomWItems(){
+		return this.gameRoomRepository.retrieveAll();
+	}
+	public GameRoom getRoomWithItem(int id) {
+		return this.gameRoomRepository.findGameRoomById(id);
+	}
 	
+//	public void removeItems(Item item) {
+//		GameRoom room = this.gameRoomRepository.findByItem(0)
+//	}
 	/**Retrieve all the rooms
 	 * 
 	 * Method: 

@@ -1,19 +1,20 @@
 package com.minigame2.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.minigame2.data.ItemRepository;
+import com.minigame2.model.GameRoom;
 import com.minigame2.model.Item;
 import com.minigame2.model.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ItemService {
 	private ItemRepository itemRepository;
-	
+
 	@Autowired
 	public ItemService(ItemRepository itemRepository) {
 		this.itemRepository = itemRepository;
@@ -43,7 +44,14 @@ public class ItemService {
 //		items.add(item);
 //		
 //	}
+	public List<Item> getItemsById(GameRoom room){
+		return this.itemRepository.findByroom(room);
+		
+	}
 	
+	public void removeItemFromRoom(GameRoom room) {
+		 this.itemRepository.removeByroom(room);
+	}
 	
 	public List<Item> getWeapons(){
 		return this.itemRepository.findByVariety("Weapon");
@@ -71,15 +79,15 @@ public class ItemService {
 	 *
 	 * void
 	 */
-	public void removeItem(Item item) {
-		for(Item it: player.getBackpack()) {
-			if(it.getName().equals(item.getName())) {
-				player.removeFromBackpack(it);
-				
-			}
-		}
-	}
-	
+//	public void removeItem(Item item) {
+//		for(Item it: player.getBackpack()) {
+//			if(it.getName().equals(item.getName())) {
+//				player.removeFromBackpack(it);
+//				
+//			}
+//		}
+//	}
+//	
 	
 	
 	

@@ -1,11 +1,9 @@
 package com.minigame2.view;
 
+import com.minigame2.view.Adventure.StageReadyEvent;
+import javafx.stage.Stage;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-
-import com.minigame2.view.Adventure.StageReadyEvent;
-
-import javafx.stage.Stage;
 
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent>{

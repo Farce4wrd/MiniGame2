@@ -1,5 +1,7 @@
 package com.minigame2.model;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +16,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name="ROOM")
-public class GameRoom {
+
+public class GameRoom implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
 	private String name;
 	private String description;
 	private String hasvisited;
-	@OneToMany(mappedBy="room",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="room",fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@Fetch(FetchMode.SELECT)
 	private List<Item> items;
 	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Monster> monsters;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="character_id")
 	private Character character;
 	
@@ -56,13 +68,13 @@ public class GameRoom {
 	 * @param items
 	 * @param exits
 	 */
-	public GameRoom(String name, String description, String hasVisited) {
+	public GameRoom(String name, String description, String hasVisited, List<Item> items) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.hasvisited = hasVisited;
-//		this.items = items;
-//		this.exits = exits;
+		this.items = items;
+	//	this.exits = exits;
 //		this.monsters=monsters;
 	}
 	/**
@@ -75,7 +87,7 @@ public class GameRoom {
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 	/**
 	 * @return the name
@@ -131,7 +143,19 @@ public class GameRoom {
 	 * void
 	 */
 	public void removeItem(Item item) {
-		this.items.remove(item);
+//		this.items.forEach(it ->{
+//			if(it.getName().equals(item.getName())) {
+//				this.items.remove(it);
+//			}
+//		});
+		for(int i = 0; i<this.items.size(); i++) {
+			Item it = items.get(i);
+			if(it.getName().equals(item.getName())) {
+				this.items.remove(it);
+			}
+		}
+		
+	
 	}
 	
 	/**Returns all items inside a room
@@ -171,15 +195,10 @@ public class GameRoom {
 	
 	@Override
 	public String toString() {
-		String visit="";
-		if(this.isHasVisited()== "TRUE") {
-			visit ="Has visited";
-		}else {
-			visit ="Has not visited";
-		}
-		System.out.println(this.getName()+": "+ visit);
-		return this.description;
-		//return "GameRoom [description=" + description + "You can go " + result + "]";
+
+		return "\n GameRoom \n id=" + getId() + "\n name=" + getName() + "\n description=" + getDescription() + "\n hasvisited=" + hasvisited
+				+ "\n items=" + getItems() + "\n character=" + character + "\n monsters=" + getMonsters() + "\n exists=" + getExits() + "\n";
+
 	}
 
 	public List<Monster> getMonsters() {

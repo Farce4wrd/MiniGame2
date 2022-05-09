@@ -1,7 +1,6 @@
 package com.minigame2.dialect;
 
-import java.sql.Types;
-
+import com.minigame2.SQLiteIdentityColumnSupport;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.StandardSQLFunction;
@@ -9,7 +8,7 @@ import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.hibernate.dialect.identity.IdentityColumnSupport;
 import org.hibernate.type.StringType;
 
-import com.minigame2.SQLiteIdentityColumnSupport;
+import java.sql.Types;
 public class SQLDialect extends Dialect {
 	
 	    public SQLDialect() {

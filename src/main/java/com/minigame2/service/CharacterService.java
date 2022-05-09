@@ -1,15 +1,22 @@
 package com.minigame2.service;
 
-import org.springframework.stereotype.Service;
-
 import com.minigame2.data.CharacterRepository;
 import com.minigame2.model.Character;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CharacterService {
-	private CharacterRepository characterRepository;
-	 public void characterSave(Character character)
+	
+	private final CharacterRepository characterRepository;
+	
+	@Autowired
+	public CharacterService(CharacterRepository characterRepository) {
+		this.characterRepository = characterRepository;
+	}
+	public void characterSave(Character character)
 	 {
-		 characterRepository.save(character);
+		 this.characterRepository.save(character);
 	 }
+	
 }
