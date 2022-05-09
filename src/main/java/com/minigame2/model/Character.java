@@ -1,22 +1,14 @@
 package com.minigame2.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 @Entity
 @Table(name="CHARACTER")
-public class Character {
+public class Character implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
@@ -31,11 +23,19 @@ public class Character {
 	private List<Item> inventory;
 	@Transient
 	private ReentrantLock lock;
+<<<<<<< HEAD
 	
 	public Character() {
 		
 	}
 	
+=======
+
+
+	public Character() {
+	}
+
+>>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 	public Character(String name, GameRoom location, int hp, int life, int points, int level) {
 		lock= new ReentrantLock();
 		this.name = name;
@@ -45,8 +45,13 @@ public class Character {
 		this.points = points;
 		this.level = 0;
 	}
+<<<<<<< HEAD
 	
 	public List<Item> getInventory()	{
+=======
+
+	public ArrayList<Item> getInventory()	{
+>>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 		lock.lock();
 		try {
 			return this.inventory;

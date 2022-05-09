@@ -1,27 +1,17 @@
 package com.minigame2.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import com.minigame2.exception.GameDataException;
-import com.minigame2.model.Exit;
-import com.minigame2.model.GameRoom;
-import com.minigame2.model.Item;
-import com.minigame2.model.Monster;
-import com.minigame2.model.Player;
-import com.minigame2.model.Weapon;
 import com.minigame2.model.Character;
+import com.minigame2.model.*;
 import com.minigame2.service.CharacterService;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
-import com.minigame2.service.MonsterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 public class GameRoomController {
@@ -319,7 +309,11 @@ public class GameRoomController {
 				characterInventory.add(itemToFind);  //add item to character's inventory
 				character.setInventory(characterInventory);
 				
+<<<<<<< HEAD
 				//location01.getItems().remove(itemToFind); //removes room item from specific room
+=======
+				location01.getItems().remove(itemToFind); //removes room item from specific room
+>>>>>>> fd1ad9b28329724956f1045f124d33e2684b02de
 				characterService.characterSave(character); //updates the character in the db with new item
 				
 				this.gameRoomService.addRoom(location);  //saves state of the room to db

@@ -1,14 +1,13 @@
 package com.minigame2.view;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.minigame2.controller.GameRoomController;
 import com.minigame2.exception.GameDataException;
 import com.minigame2.model.GameRoom;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 @Component
 public class GameView {
