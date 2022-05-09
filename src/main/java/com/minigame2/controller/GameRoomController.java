@@ -311,6 +311,7 @@ public class GameRoomController {
 
 				location01.getItems().remove(itemToFind); //removes room item from specific room
 				characterService.characterSave(character); //updates the character in the db with new item
+				System.out.println("HERE IS MY LOCATION TO BE PRINTED: " + location01);
 				
 				this.gameRoomService.addRoom(location);  //saves state of the room to db
 				String res =itemToFind.getName() + " has been added to your inventory!\n";

@@ -170,8 +170,8 @@ public class GameRoom implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasvisited=" + hasvisited
-				+ ", items=" + items + ", character=" + character + "]";
+		return "\n GameRoom \n id=" + getId() + "\n name=" + getName() + "\n description=" + getDescription() + "\n hasvisited=" + hasvisited
+				+ "\n items=" + getItems() + "\n character=" + character + "\n monsters=" + getMonsters() + "\n exists=" + getExits() + "\n";
 	}
 
 	public List<Monster> getMonsters() {
