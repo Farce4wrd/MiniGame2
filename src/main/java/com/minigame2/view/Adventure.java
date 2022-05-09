@@ -72,7 +72,7 @@ public class Adventure extends Application {
 		commandList.put("close", new Command("Close -", "Closes the program.", Platform::exit ));
 		commandList.put("help", new Command("Help -", "Display all user commands.", this::runHelp));
 		commandList.put("showexample", new Command("Show Example -", "hope this works.", this::showCommand));
-		commandList.put("seeexits", new Command("See Exits -", "See exit list.", this.grc::tester));
+		commandList.put("seeexits", new Command("See Exits -", "Show list of exits.", this.grc::tester));
 		commandList.put("go", new Command("Go -", "Moves to EAST or WEST or NORTH or SOUTH (example: go > east).", () ->moveCommand(direction)));
 		commandList.put("pickup", new Command("Pick Up -", "Picks up any item (example: pickup > bandage).", () ->pick(pickupItem)));
 		//Need a method to show room currently in, list of items in room, exits in the room.
@@ -99,6 +99,7 @@ public class Adventure extends Application {
 	//This prints all your show message to the Screen to be visible to user
 	private void println(String line) {
 		output.appendText(">"+line + "\n");
+		output.setWrapText(true);
 	}
 	
 	private void showCommand()
@@ -122,7 +123,7 @@ public class Adventure extends Application {
 
 	private void runHelp() {
 		commandList.forEach((name, command) ->{
-			println(command.getName()+"\t"+command.getDescription());
+			println(command.getName()+ " " +command.getDescription());
 		});
 	}
 	
