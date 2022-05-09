@@ -1,16 +1,5 @@
 package com.minigame2;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-
 import com.minigame2.data.CharacterRepository;
 import com.minigame2.data.GameRoomRepository;
 import com.minigame2.data.ItemRepository;
@@ -23,8 +12,16 @@ import com.minigame2.service.CharacterService;
 import com.minigame2.service.GameRoomService;
 import com.minigame2.service.ItemService;
 import com.minigame2.view.Adventure;
-
 import javafx.application.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 
 

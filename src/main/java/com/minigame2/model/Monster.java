@@ -1,18 +1,11 @@
 package com.minigame2.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="MONSTER", schema="MONSTER")
-public class Monster implements Serializable{
+public class Monster implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

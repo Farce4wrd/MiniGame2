@@ -1,5 +1,6 @@
 package com.minigame2.model;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +16,36 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+=======
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+>>>>>>> 7e9fa8c6846c6959ed09093126049a0b028d88af
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="ROOM")
+<<<<<<< HEAD
 public class GameRoom implements Serializable{
+=======
+public class GameRoom implements Serializable {
+>>>>>>> 7e9fa8c6846c6959ed09093126049a0b028d88af
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
 	private String name;
 	private String description;
 	private String hasvisited;
-	@OneToMany(mappedBy="room",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="room",fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	private List<Item> items;
-	@OneToMany(mappedBy="room", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="room", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -178,8 +192,13 @@ public class GameRoom implements Serializable{
 	
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasvisited=" + hasvisited
 				+ ", items=" + items + ", exits=" + getExits() + ", monsters=" + getMonsters()  + "]";
+=======
+		return "\n GameRoom \n id=" + getId() + "\n name=" + getName() + "\n description=" + getDescription() + "\n hasvisited=" + hasvisited
+				+ "\n items=" + getItems() + "\n character=" + character + "\n monsters=" + getMonsters() + "\n exists=" + getExits() + "\n";
+>>>>>>> 7e9fa8c6846c6959ed09093126049a0b028d88af
 	}
 
 	public List<Monster> getMonsters() {

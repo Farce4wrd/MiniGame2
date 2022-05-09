@@ -1,11 +1,10 @@
 package com.minigame2.data;
 
-import java.util.Optional;
-
+import com.minigame2.model.Character;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.minigame2.model.Character;
+import java.util.Optional;
 
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, Integer> {

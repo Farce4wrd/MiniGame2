@@ -1,25 +1,8 @@
 package com.minigame2.view;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.stereotype.Component;
-
 import com.minigame2.MiniGame2Application;
 import com.minigame2.controller.GameRoomController;
-import com.minigame2.data.GameRoomRepository;
 import com.minigame2.model.Character;
-import com.minigame2.model.Player;
-import com.minigame2.service.GameRoomService;
-import com.minigame2.service.ItemService;
-import com.minigame2.service.MonsterService;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -30,21 +13,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class Adventure extends Application {
 	
 	@Autowired
 	private ConfigurableApplicationContext applicationContext;
-	
-	//GameRoomController grc = applicationContext.getBean(GameRoomController.class);
-	
 	private TextArea output = new TextArea();
 	private TextField input = new TextField();
-	
-	//Stores all the user commands.
-	private Map<String, Command> commands = new HashMap<>();
-	
+	private Map<String, Command> commandList = new HashMap<>();
+	private String pickupItem;
+	private String direction;
 	GameRoomController grc;
 	
 	//This is when the stage is created
@@ -52,21 +39,15 @@ public class Adventure extends Application {
 		output.setPrefHeight(500);
 		output.setFont(Font.font(20));
 		output.setEditable(false);  //-> Makes sure user cannot edit output
-		
 		output.setFocusTraversable(false);;  //->Makes sure the input is highlighted instead of output on instantiation
 		
 		VBox root = new VBox(15, output, input);
 		root.setPadding(new Insets(15));
 		root.setPrefSize(800,600);
-		
-		//always check for your inputs
-		input.setOnAction(e ->{
-			String inputText = input.getText();
-			input.clear();
-			onInput(inputText);
-		});
+
 		initGame();
-		
+		userInput();
+
 		return root;
 	}
 	public static Character chara;
@@ -76,10 +57,49 @@ public class Adventure extends Application {
 		chara = grc.createCharacterAtBeginning("Josh");
 		initCommands();
 	}
+
+	private void userInput() {
+		println("__________________________________________________________");
+		//always check for your inputs
+		input.setOnAction(e ->{
+			String inputText = input.getText();
+			input.clear();
+			onInput(inputText);
+			println("__________________________________________________________");
+		});
+	}
+	private void initCommands() {
+		commandList.put("close", new Command("Close -", "Closes the program.", Platform::exit ));
+		commandList.put("help", new Command("Help -", "Display all user commands.", this::runHelp));
+		commandList.put("showexample", new Command("Show Example -", "hope this works.", this::showCommand));
+		commandList.put("seeexits", new Command("See Exits -", "Show list of exits.", this.grc::tester));
+		commandList.put("go", new Command("Go -", "Moves to EAST or WEST or NORTH or SOUTH (example: go > east).", () ->moveCommand(direction)));
+		commandList.put("pickup", new Command("Pick Up -", "Picks up any item (example: pickup > bandage).", () ->pick(pickupItem)));
+		//Need a method to show room currently in, list of items in room, exits in the room.
+		//May also display status of character in the method above (hp, inventory, e.t.c)
+	}
+	//Method that verifies the input
+	private void onInput(String inputText) {
+		String rawInput = inputText.replaceAll("\\s", "");
+		String[] query = rawInput.split(">", 2);
+		String command = query[0].toLowerCase();
+
+		if(!commandList.containsKey(command)) {
+			println("Command "+ command + " not recognized");
+			return;
+		} else if(command.equals("pickup")) {
+			pickupItem = query[1].toLowerCase();
+		}else if(command.equals("go")) {
+			direction = query[1].toLowerCase();
+		}
+
+		commandList.get(command).execute();
+	}
 	
-	//This prints all your mshowessage to the Screen to be visible to user
+	//This prints all your show message to the Screen to be visible to user
 	private void println(String line) {
 		output.appendText(">"+line + "\n");
+		output.setWrapText(true);
 	}
 	
 	private void showCommand()
@@ -87,43 +107,8 @@ public class Adventure extends Application {
 		String holdtheline = grc.tester();
 		println(holdtheline);
 	}
-
-	//Method that verifies the input
-	private void onInput(String inputText) {
-		String rawInput = inputText.replaceAll("\\s", "");
-		String[] query = rawInput.split(":", 2);
-		String command = query[0];
-		if(command.equals("pick-up")) {
-			String item = query[1];
-			input.setText(item);
-		}
-
-		if(!commands.containsKey(command)) {
-			println("Command "+ command + " not recognized");
-			return;
-		}
-
-		commands.get(command).execute();
-	}
 	
 	public static String a = "li";
-
-
-	private void initCommands() {
-		commands.put("exit", new Command("exit", "Closes the program", Platform::exit ));
-		commands.put("help", new Command("help", "Display all user commands", this::runHelp));
-		commands.put("show", new Command("show example text", "hope this works", this::showCommand));
-		commands.put("see", new Command("see", "see exit list", this.grc::tester));
-		commands.put("EAST", new Command("EAST", "Move east", () ->moveCommand("EAST")));
-		commands.put("NORTH", new Command("EAST", "Move east", () ->moveCommand("NORTH")));
-		commands.put("WEST", new Command("EAST", "Move east", () ->moveCommand("WEST")));
-		commands.put("SOUTH", new Command("EAST", "Move east", () ->moveCommand("SOUTH")));
-		commands.put("pick-up", new Command("pick-up", "picks up any item", () ->pick(input.getText())));
-		
-		
-		
-		//commands.put("pick", new Command("pick", "Picks up an item", gameController));
-	}
 	
 	private void pick(String item) {
 		Character chara = grc.createCharacterAtBeginning("Josh");
@@ -137,8 +122,8 @@ public class Adventure extends Application {
 	}
 
 	private void runHelp() {
-		commands.forEach((name, cmd) ->{
-			println(name+"\t"+cmd.getDescription());
+		commandList.forEach((name, command) ->{
+			println(command.getName()+ " " +command.getDescription());
 		});
 	}
 	
@@ -180,7 +165,4 @@ public class Adventure extends Application {
 			return ((Stage) getSource());
 		}
 	}
-
-
-	
 }
