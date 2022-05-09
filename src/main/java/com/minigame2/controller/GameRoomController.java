@@ -271,24 +271,24 @@ public class GameRoomController {
 	 * Method: @param Item upgradeConsumable
 	 * 
 	 */
-	public String upgrade(Character character, Weapon weapon, Item upgradeConsumable)
-	{
-		ArrayList<Item> currentInventory = character.getInventory();
-		int weaponDamage = Integer.parseInt(weapon.getDamage()) ;
-		
-		if((upgradeConsumable.getName().equalsIgnoreCase("Big Box")) && (character.getInventory().contains(upgradeConsumable)
-				&& currentInventory.contains(weapon)))
-		{
-			weaponDamage+=15;
-			weapon.setDamage(""+weaponDamage);
-			return weapon.getName() + " has been upgraded. \n The current damage is now " + weapon.getDamage() + "\n";
-		}
-		else
-		{
-			return "Invalid option. \n You need to have the " + weapon.getName() + " and the Big Box in your inventory to upgrade the " + weapon.getName() + "\n";
-		}
-	}
-	
+//	public String upgrade(Character character, Weapon weapon, Item upgradeConsumable)
+//	{
+//		ArrayList<Item> currentInventory = character.getInventory();
+//		int weaponDamage = Integer.parseInt(weapon.getDamage()) ;
+//		
+//		if((upgradeConsumable.getName().equalsIgnoreCase("Big Box")) && (character.getInventory().contains(upgradeConsumable)
+//				&& currentInventory.contains(weapon)))
+//		{
+//			weaponDamage+=15;
+//			weapon.setDamage(""+weaponDamage);
+//			return weapon.getName() + " has been upgraded. \n The current damage is now " + weapon.getDamage() + "\n";
+//		}
+//		else
+//		{
+//			return "Invalid option. \n You need to have the " + weapon.getName() + " and the Big Box in your inventory to upgrade the " + weapon.getName() + "\n";
+//		}
+//	}
+//	
 	/**Pickup an item from a room
 	 * 
 	 * Method: @param Character character
@@ -297,11 +297,11 @@ public class GameRoomController {
 	
 	public String pickup(Character character, String item)
 	{
-		ArrayList<Item> characterInventory = character.getInventory();
+		List<Item> characterInventory = character.getInventory();
 		
 		GameRoom location = character.getLocation();
 		GameRoom location01 = this.gameRoomService.getRoom(location.getId());
-		System.out.println(location01.getItems());
+		//System.out.println(location01.getItems());
 		//This holds all items attached to a room
 		//GameRoom presentRoom = this.gameRoomService.getRoom(location.getId());
 		
@@ -320,7 +320,7 @@ public class GameRoomController {
 				character.setInventory(characterInventory);
 				
 				//location01.getItems().remove(itemToFind); //removes room item from specific room
-				//characterService.characterSave(character); //updates the character in the db with new item
+				characterService.characterSave(character); //updates the character in the db with new item
 				
 				this.gameRoomService.addRoom(location);  //saves state of the room to db
 				String res =itemToFind.getName() + " has been added to your inventory!\n";
@@ -341,25 +341,25 @@ public class GameRoomController {
 	 * 
 	 */
 	
-	public String drop(Character character, Item item)
-	{
-		ArrayList<Item> characterInventory = character.getInventory();
-		GameRoom location = character.getLocation();
-		
-		if(characterInventory.contains(item))
-		{
-			location.getItems().add(item);
-			characterInventory.remove(item);
-			characterService.characterSave(character);
-			return item.getName() + " has been added to the " + location.getName() + "!\n";
-		}
-		else
-		{
-			return "Invalid option. " + item.getName() + " is not in your inventory. \n";
-		}
-	
-	}
-	
+//	public String drop(Character character, Item item)
+//	{
+//		ArrayList<Item> characterInventory = character.getInventory();
+//		GameRoom location = character.getLocation();
+//		
+//		if(characterInventory.contains(item))
+//		{
+//			location.getItems().add(item);
+//			characterInventory.remove(item);
+//			characterService.characterSave(character);
+//			return item.getName() + " has been added to the " + location.getName() + "!\n";
+//		}
+//		else
+//		{
+//			return "Invalid option. " + item.getName() + " is not in your inventory. \n";
+//		}
+//	
+//	}
+//	
 	
 	/**To get items within a room for game view class
 	 * 

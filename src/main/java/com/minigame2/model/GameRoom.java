@@ -15,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="ROOM")
@@ -26,10 +29,13 @@ public class GameRoom {
 	private String description;
 	private String hasvisited;
 	@OneToMany(mappedBy="room",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Item> items;
 	@OneToMany(mappedBy="room", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Exit> exits = new ArrayList<>();
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Monster> monsters;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="character_id")
@@ -173,15 +179,8 @@ public class GameRoom {
 	
 	@Override
 	public String toString() {
-		String visit="";
-		if(this.isHasVisited()== "TRUE") {
-			visit ="Has visited";
-		}else {
-			visit ="Has not visited";
-		}
-		System.out.println(this.getName()+": "+ visit);
-		return this.description;
-		//return "GameRoom [description=" + description + "You can go " + result + "]";
+		return "GameRoom [id=" + id + ", name=" + name + ", description=" + description + ", hasvisited=" + hasvisited
+				+ ", items=" + items + ", character=" + character + "]";
 	}
 
 	public List<Monster> getMonsters() {

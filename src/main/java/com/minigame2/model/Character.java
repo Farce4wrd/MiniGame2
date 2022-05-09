@@ -1,6 +1,7 @@
 package com.minigame2.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.persistence.CascadeType;
@@ -24,12 +25,16 @@ public class Character {
 	private int life;
 	private int points;
 	private int level;
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="character")
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="character")
 	private GameRoom location;
-	private ArrayList<Item> inventory;
+	@Transient
+	private List<Item> inventory;
 	@Transient
 	private ReentrantLock lock;
 	
+	public Character() {
+		
+	}
 	
 	public Character(String name, GameRoom location, int hp, int life, int points, int level) {
 		lock= new ReentrantLock();
@@ -41,7 +46,7 @@ public class Character {
 		this.level = 0;
 	}
 	
-	public ArrayList<Item> getInventory()	{
+	public List<Item> getInventory()	{
 		lock.lock();
 		try {
 			return this.inventory;
@@ -91,8 +96,8 @@ public class Character {
 		this.points = points;
 	}
 
-	public void setInventory(ArrayList<Item> inventory) {
-		this.inventory = inventory;
+	public void setInventory(List<Item> characterInventory) {
+		this.inventory = characterInventory;
 	}
 
 	public int getLevel() {
@@ -101,6 +106,20 @@ public class Character {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Character [id=" + id + ", name=" + name + ", hp=" + hp + ", life=" + life + ", points=" + points
+				+ ", level=" + level + ", location=" + location + ", inventory=" + inventory + "]";
 	}
 	
 	

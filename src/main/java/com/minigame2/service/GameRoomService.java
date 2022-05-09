@@ -64,6 +64,12 @@ public class GameRoomService {
 		return this.gameRoomRepository.findById(id);
 	}
 	
+	public List<GameRoom> getRoomWItems(){
+		return this.gameRoomRepository.retrieveAll();
+	}
+	public GameRoom getRoomWithItem(int id) {
+		return this.gameRoomRepository.findGameRoomById(id);
+	}
 	
 	/**Retrieve all the rooms
 	 * 
