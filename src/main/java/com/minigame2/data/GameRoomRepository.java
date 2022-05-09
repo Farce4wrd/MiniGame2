@@ -19,5 +19,6 @@ public interface GameRoomRepository extends JpaRepository<GameRoom, Integer>{
 	
 	GameRoom findById(int id);
 	
+	GameRoom findByItems(int id);
 	
 }

@@ -43,128 +43,7 @@ public class GameRoomController {
 		//ControllerStart();
 	}
 	
-	/**Creates room and its items
-	 * 
-	 * Method: @throws GameDataException
-	 *
-	 * void
-	 */
-//	public void ControllerStart() //throws GameDataException 
-//	{
-//		try {
-//			File itemFile = new File("item.txt");
-//			Scanner itemReader = new Scanner(itemFile);
-//			while(itemReader.hasNextLine()) {
-//				int id = Integer.parseInt(itemReader.nextLine());
-//				String name = itemReader.nextLine();
-//				String description = itemReader.nextLine();
-//				//itemService.createItems(id, name, description);
-//			}
-//		}catch(Exception ex) {
-//			throw new GameDataException("Error occured while reading the text file");
-//		}
-//		
-//		
-//		
-//		try {
-//			File gameFiles = new File("minigame.txt");
-//			Scanner fileReader = new Scanner(gameFiles);
-//			ArrayList<String> navigation = new ArrayList<String>();
-//
-//			while(fileReader.hasNextLine()) {
-//				ArrayList<Exit> exitList = new ArrayList<Exit>();
-//				//String tempLine = fileReader.nextLine();
-//				String temp = fileReader.next();
-//				int id = Integer.parseInt(temp);
-//				fileReader.nextLine(); //to make it skip line
-//				//int id = Integer.parseInt(fileReader.next());
-//				String name = fileReader.nextLine();
-//				//This is to get the room ids separate from the room directions
-//				Scanner directionsWithId = new Scanner(fileReader.nextLine());
-//				while(directionsWithId.hasNext()) {
-//					String direction = directionsWithId.next();
-//					int exitId = directionsWithId.nextInt();
-//					Exit exit = new Exit(direction, exitId);
-//					exitList.add(exit);
-//				}
-//				String description = fileReader.nextLine();
-//				ArrayList<Item> it = new ArrayList<Item>();
-//				//gameRoomService.createRoom(id, name, description, false, it, exitList);
-//				
-//			}
-//			//randomly generate the items in rooms
-//			//gameRoomService.addItemInRoom(itemService.getItem(), gameRoomService.getRooms());
-//
-//	
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Cant find game files.");
-//		}
-//		
-//	}
-	
-	//START OF OLD CODE
-	
-	/**Provides the exit directions in a string arraylist for view component to hold user options
-	 * 
-	 * Method: @param id
-	 * Method: @return
-	 * Method: @throws GameDataException
-	 *
-	 * ArrayList<String>
-	 */
-	public ArrayList<String> getRoomDirections(int id) throws GameDataException{
-		return null; //gameRoomService.getRoomDirection(id);
-	}
-	
-	/**Gets the next room id in the exit list
-	 * 
-	 * Method: @param room
-	 * Method: @param direction
-	 * Method: @return
-	 * Method: @throws GameDataException
-	 *
-	 * int
-	 */
-	public int getRoomID(GameRoom room, String direction) throws GameDataException {
-		return 0;//gameRoomService.getNextRoomId(room, direction);
-	}
-	/**Provides the game rooms for the view component to iterate over if needed
-	 * 
-	 * Method: @return
-	 * Method: @throws GameDataException
-	 *
-	 * ArrayList<GameRoom>
-	 */
-	public ArrayList<GameRoom> getAllRooms() throws GameDataException{
-		return null;//gameRoomService.getRooms();
-	}
-	/**Tells the user if the game has been visited
-	 * 
-	 * Method: @param room
-	 * Method: @throws GameDataException
-	 *
-	 * void
-	 */
-	public void setRoomVisit(GameRoom room) throws GameDataException{
-		 //gameRoomService.setRoomVisited(room);
-	}
-	
-	/**Calls the drop action in service --Drops item in room
-	 * 
-	 * Method: @param item
-	 * Method: @param room
-	 *
-	 * void
-	 */
-	public void dropItem(Item item, GameRoom room) {
-		//gameRoomService.dropItemInRoom(item, room);
-		player.removeFromBackpack(item);
-		System.out.println(item.getName() + " has been removed");
-	}
-	
-	//END OF OLD CODE
+
 	//////Pre-cursor for the UI
 	public Character createCharacterAtBeginning(String name) {
 		GameRoom location = this.gameRoomService.getRoom(1);
@@ -226,18 +105,22 @@ public class GameRoomController {
 	
 	public String move(Character character, String direction)
 	{
+		Boolean isPresent = false;
 		GameRoom currentLocation = character.getLocation();
 		List<Exit> exits = currentLocation.getAllExitObject();
 		for(Exit e : exits)
 		{
 			if((e.getDirection()).equalsIgnoreCase(direction))
 			{
+				isPresent = true;
 				int i = e.getRoomId();
 				character.setLocation(this.gameRoomService.getRoom(i));
 				return this.gameRoomService.getRoom(i).getDescription();
 			}
 		}
-		
+		if(isPresent == false) {
+			return direction+" does not exist here";
+		}
 		
 		return character.getLocation().getDescription();
 		//Change the UI of map to match the player location
@@ -393,7 +276,7 @@ public class GameRoomController {
 			for(Item it: items) {
 				if(playerChoice.equalsIgnoreCase("remove " +it.getName())) {
 					itemFound = true;
-					dropItem(it, room);
+					//dropItem(it, room);
 					break;
 				}
 			}

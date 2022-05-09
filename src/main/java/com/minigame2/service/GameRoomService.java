@@ -69,6 +69,9 @@ public class GameRoomService {
 		return this.gameRoomRepository.findGameRoomById(id);
 	}
 	
+//	public void removeItems(Item item) {
+//		GameRoom room = this.gameRoomRepository.findByItem(0)
+//	}
 	/**Retrieve all the rooms
 	 * 
 	 * Method: 

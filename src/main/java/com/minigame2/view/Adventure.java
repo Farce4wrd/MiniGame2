@@ -55,6 +55,7 @@ public class Adventure extends Application {
 	private void initGame() {
 		println("Welcome to Scary Place");
 		chara = grc.createCharacterAtBeginning("Josh");
+		println(chara.getLocation().getDescription());
 		initCommands();
 	}
 

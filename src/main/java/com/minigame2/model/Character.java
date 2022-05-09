@@ -21,7 +21,7 @@ public class Character implements Serializable {
 	private int points;
 	private int level;
 	@OneToOne(mappedBy="character",fetch= FetchType.EAGER)
-	private GameRoom location;
+	private GameRoom location = new GameRoom();
 	@Transient
 	private List<Item> inventory;
 	@Transient
